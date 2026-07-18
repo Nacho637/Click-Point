@@ -1,27 +1,57 @@
-# Click-Point
+# Erbsen-Chip Heist
 
-A project for tracking and managing click points.
+Browserbasiertes 3D-Point-and-Click-Adventure: Du spielst ein Meerschweinchen auf dem Weg zum Erbsen-Chip-Tresor.
 
-## Getting Started
+Steuerung wie bei Blue Rabbit’s Climate Chaos — **WASD** laufen, **Mausklick** für NPCs/Objekte, **4 Inventar-Slots**.
 
-This repository contains the Click-Point project.
+## Spielen
 
-## Project Structure
+1. `npm install`
+2. `cp .env.example .env.local` und Supabase-Keys eintragen
+3. `npm run dev`
+4. Öffne [http://localhost:3000](http://localhost:3000) → **Jetzt spielen**
 
-- `README.md` - This file
+Produktiv: Deploy auf **Vercel** (dieses Repo). Speicherstände liegen in **Supabase** (`saves`).
 
-## Installation
+## Steuerung
 
-Instructions for installation will be added here.
+| Aktion | Eingabe |
+|---|---|
+| Bewegen | `W` `A` `S` `D` oder Pfeiltasten |
+| Interagieren | Linksklick (nur in Reichweite) |
+| Item wählen | Inventar-Slot unten |
+| Item benutzen | Item wählen, dann Ziel anklicken |
+| Ablegen | „Ausgewähltes ablegen“ |
 
-## Usage
+## Garten-MVP (aktuell spielbar)
 
-Usage instructions will be added here.
+Zwei Wege, das Gartentor zu öffnen:
 
-## Contributing
+1. **Schlüssel:** Mit dem Igel reden → Blumentopf anklicken → Schlüssel aufs Tor
+2. **Buddeln:** Krümel aufheben → dem Spatz geben → Spaten am lockeren Erdreich am Tor
 
-Contributions are welcome! Please feel free to submit a pull request.
+Details: [`design/quest-graph.md`](design/quest-graph.md), [`design/gdd.md`](design/gdd.md)
 
-## License
+## Stack
 
-MIT License
+- Next.js (App Router) + TypeScript + Tailwind
+- React Three Fiber / Three.js
+- Zustand (Spielzustand)
+- Supabase (Save-API unter `/api/save`)
+- Vercel (Hosting)
+
+## Projektstruktur
+
+```text
+app/                  Landing, /play, API
+src/game/             Engine, Szenen, UI, Quests
+design/               GDD + Quest-Graph
+supabase/migrations/  DB-Schema
+```
+
+## Nächste Phasen
+
+- Hof + Hund + Haustür
+- Haus / Treppe / Tresor
+- Autosave + „Weiter spielen“
+- Assets & Feinschliff
