@@ -16,7 +16,7 @@ export default function HomePage() {
         <nav className="flex items-center justify-between text-sm text-[#d9e8d0]/90">
           <span className="tracking-[0.2em] uppercase">Browser Adventure</span>
           <a
-            href="https://github.com"
+            href="https://github.com/Nacho637/Click-Point"
             className="rounded-full border border-white/15 px-3 py-1 hover:border-[#f0c75e]/60"
           >
             GitHub
