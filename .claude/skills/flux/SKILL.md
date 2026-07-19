@@ -1,7 +1,7 @@
 ---
 name: flux
 description: >
-  Generate images with FLUX.1 [schnell] via Cloudflare Workers AI. Use whenever the
+  Generate images with FLUX 2 Pro via Cloudflare Workers AI. Use whenever the
   user asks to create, generate, or draw an image/picture/logo/illustration
   ("erstelle ein Bild", "generiere ein Bild", "male", "Bild von ...").
 ---
@@ -9,18 +9,18 @@ description: >
 # FLUX image generation (Cloudflare Workers AI)
 
 Generate an image from a text prompt using Cloudflare's hosted
-`@cf/black-forest-labs/flux-1-schnell` model.
+`@cf/black-forest-labs/flux-2-pro-preview` model.
 
 ## Prerequisites
 
-Two environment variables must be set (never hardcode them):
-
-- `CLOUDFLARE_ACCOUNT_ID` – Cloudflare Dashboard → Workers & Pages → right sidebar "Account ID"
-- `CLOUDFLARE_API_TOKEN` – API token with the **Workers AI** permission
-
-If either is missing, tell the user which one is missing and how to obtain it.
-Do not ask the user to paste secrets into the chat — they should set them in
-their shell profile or the Claude Code environment settings.
+- `CLOUDFLARE_API_TOKEN` (required) – API token with the **Workers AI**
+  permission. Never hardcode it; if it is missing, tell the user to set it in
+  their shell profile or the Claude Code environment settings — not to paste it
+  into the chat.
+- `CLOUDFLARE_ACCOUNT_ID` (optional) – the script defaults to the account
+  `26f31e7485017096cb8d550d68cdc80a`.
+- `FLUX_MODEL` (optional) – override the model, e.g.
+  `@cf/black-forest-labs/flux-1-schnell` for fast drafts.
 
 ## How to generate
 
@@ -34,11 +34,12 @@ bash <path-to-this-skill-dir>/flux-generate.sh "<english prompt>" <output-path> 
 
 - Write the prompt in **English** and make it descriptive (subject, style,
   lighting, composition). Translate German requests before sending.
-- `steps`: 1–8, default 4. Use 8 for maximum quality.
+- `steps` is optional and only supported by some models (flux-1-schnell: 1–8);
+  omit it for flux-2-pro-preview.
 - Save the output into the session scratchpad directory unless the user names a
   target path.
-- The API returns a base64 image (JSON field `result.image`); the script
-  decodes it to the output file.
+- The script handles both response formats (JSON with base64 `result.image`,
+  or raw image bytes) and writes the decoded image to the output file.
 
 ## After generating
 
@@ -47,9 +48,9 @@ mark, refine the prompt and regenerate rather than apologizing.
 
 ## Troubleshooting
 
-- HTTP 403 / CONNECT errors: the environment's network policy blocks
-  `api.cloudflare.com` — the user must allow that domain (Claude Code on the
-  web: environment → network policy).
-- `.success == false` with auth errors: token invalid or missing the
-  Workers AI permission.
-- Error 7000/7003: wrong or missing account ID.
+- `CONNECT tunnel failed, response 403`: the environment's network policy
+  blocks `api.cloudflare.com` — the user must allow that domain (Claude Code on
+  the web: environment settings → network policy).
+- HTTP 401/403 from Cloudflare: token invalid or missing the Workers AI
+  permission.
+- Error 7000/7003: wrong account ID.
