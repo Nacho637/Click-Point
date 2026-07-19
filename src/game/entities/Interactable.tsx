@@ -25,7 +25,6 @@ export function Interactable({
 }: InteractableProps) {
   const group = useRef<Group>(null);
   const [hovered, setHovered] = useState(false);
-  const playerPosition = useGameStore((s) => s.playerPosition);
   const dialogueOpen = useGameStore((s) => s.dialogue !== null);
   const setNearby = useGameStore((s) => s.setNearby);
   const nearbyId = useGameStore((s) => s.nearbyId);
@@ -34,15 +33,16 @@ export function Interactable({
   const selfVec = useMemo(() => new THREE.Vector3(...position), [position]);
 
   useFrame(() => {
+    const { playerPosition, nearbyId: currentNearby } = useGameStore.getState();
     if (disabled) {
-      if (nearbyId === id) setNearby(null);
+      if (currentNearby === id) setNearby(null);
       return;
     }
     playerVec.set(playerPosition[0], 0, playerPosition[2]);
     const dist = playerVec.distanceTo(selfVec);
     const near = dist <= radius;
-    if (near && nearbyId !== id) setNearby(id);
-    if (!near && nearbyId === id) setNearby(null);
+    if (near && currentNearby !== id) setNearby(id);
+    if (!near && currentNearby === id) setNearby(null);
 
     if (group.current) {
       const pulse = near ? 1 + Math.sin(performance.now() * 0.006) * 0.03 : 1;
