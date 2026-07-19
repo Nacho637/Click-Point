@@ -52,7 +52,14 @@ export function Player() {
       BOUNDS.maxZ,
     );
 
-    setPlayerPosition([g.position.x, g.position.y, g.position.z]);
+    const prev = useGameStore.getState().playerPosition;
+    if (
+      prev[0] !== g.position.x ||
+      prev[1] !== g.position.y ||
+      prev[2] !== g.position.z
+    ) {
+      setPlayerPosition([g.position.x, g.position.y, g.position.z]);
+    }
   });
 
   return (
