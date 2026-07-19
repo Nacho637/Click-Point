@@ -44,6 +44,7 @@ export function InventoryBar() {
         type="button"
         disabled={dialogueOpen || selectedSlot === null || !inventory[selectedSlot ?? -1]}
         onClick={dropSelected}
+        title="Legt den Gegenstand vor dir auf den Boden – du kannst ihn jederzeit wieder aufheben."
         className="rounded-full border border-[#4d6b42] bg-[#1c2e22]/90 px-3 py-1 text-xs text-[#d9e8d0] transition hover:border-[#f0c75e] disabled:opacity-40"
       >
         Ausgewähltes ablegen
