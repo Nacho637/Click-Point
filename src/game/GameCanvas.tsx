@@ -2,6 +2,7 @@
 
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
+import { Atmosphere, SUN_POSITION } from "@/game/rendering/Atmosphere";
 import { DevPerf } from "@/game/rendering/DevPerf";
 import { GardenScene } from "@/game/scenes/GardenScene";
 import { FollowCamera } from "@/game/systems/FollowCamera";
@@ -11,14 +12,13 @@ import { GameHUD } from "@/game/ui/GameHUD";
 function SceneLights() {
   return (
     <>
-      <color attach="background" args={["#93c1d8"]} />
-      <fog attach="fog" args={["#a9c9d1", 34, 72]} />
-      <ambientLight intensity={0.5} color="#fff1d0" />
+      {/* IBL aus <Atmosphere> übernimmt das Füllen; Ambient/Hemisphere nur noch als Rest-Aufheller. */}
+      <ambientLight intensity={0.1} color="#fff1d0" />
       <directionalLight
         castShadow
-        position={[-10, 18, 9]}
-        intensity={1.35}
-        color="#ffe8b2"
+        position={SUN_POSITION}
+        intensity={2.2}
+        color="#ffe3ae"
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
         shadow-camera-left={-27}
@@ -29,7 +29,7 @@ function SceneLights() {
         shadow-bias={-0.0002}
         shadow-normalBias={0.03}
       />
-      <hemisphereLight args={["#c6e3ef", "#4b703b", 0.45]} />
+      <hemisphereLight args={["#c6e3ef", "#4b703b", 0.2]} />
     </>
   );
 }
@@ -42,7 +42,7 @@ export function GameCanvas() {
       <Canvas
         shadows="soft"
         dpr={[1, 1.75]}
-        camera={{ position: [0, 9.5, 19.5], fov: 48, near: 0.1, far: 110 }}
+        camera={{ position: [0, 9.5, 19.5], fov: 48, near: 0.1, far: 250 }}
         gl={{
           antialias: true,
           powerPreference: "high-performance",
@@ -55,6 +55,7 @@ export function GameCanvas() {
       >
         <DevPerf />
         <Suspense fallback={null}>
+          <Atmosphere />
           <SceneLights />
           <FollowCamera />
           <GardenScene />
