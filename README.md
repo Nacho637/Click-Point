@@ -11,7 +11,16 @@ Steuerung wie bei Blue Rabbit’s Climate Chaos — **WASD** laufen, **Mausklick
 3. `npm run dev`
 4. Öffne [http://localhost:3000](http://localhost:3000) → **Jetzt spielen**
 
-Produktiv: Deploy auf **Vercel** (dieses Repo). Speicherstände liegen in **Supabase** (`saves`).
+Produktiv: Deploy auf **Vercel** (GitHub-Integration, Projekt `click-point`).  
+Öffentliche URL: [click-point-gamma.vercel.app](https://click-point-gamma.vercel.app)  
+Falls die Seite SSO/Login zeigt: in Vercel unter **Deployment Protection** den Schutz für Production deaktivieren (sonst ist es kein Spieleaffe-Direktzugriff).
+
+Supabase-Env auf Vercel setzen (Project → Settings → Environment Variables):
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+Werte stehen lokal in `.env.local` / Vorlage in `.env.example`. Speicherstände liegen in Supabase-Tabelle `saves`.
 
 ## Steuerung
 
