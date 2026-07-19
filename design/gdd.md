@@ -12,9 +12,22 @@ Blue Rabbit’s Climate Chaos: WASD-Bewegung in 3D, Punkt-und-Klick für NPCs/Ob
 
 1. In der Szene herumlaufen  
 2. Nahe Objekte/NPCs anklicken  
-3. Hinweise lesen, Items aufheben  
-4. Items auf Ziele anwenden (max. 4 Inventarplätze)  
-5. Flags setzen → neue Wege / Szenen öffnen  
+3. Hinweise, Atmosphäre und bewusst nutzlose Spuren unterscheiden  
+4. Items aufheben und mit begrenzten 4 Inventarplätzen abwägen  
+5. Items auf Ziele anwenden; auch falsche Kombinationen geben eine konkrete Reaktion  
+6. Flags setzen → neue Wege / Szenen öffnen  
+
+## Garten-MVP: Erkundung statt Lösungskorridor
+
+Die Startkarte ist eine größere, offene Gartenlichtung mit drei Seitenpfaden:
+
+- **Teich:** Frosch, Steinwurf und reine Atmosphäre
+- **Schuppen:** falsches Schloss, Schubkarre und Gartengeräte
+- **Ruhebereich:** Bank, Vogelbad, Gartenzwerg und Schnecke
+
+Stein, Blatt und Kronkorken belegen Inventarplätze, öffnen aber nicht das Tor. Sie haben
+eigene passende Reaktionen (Teich/Frosch, Schnecke, Gartenzwerg), damit Experimente
+nicht wie kaputte Interaktionen wirken. Ablegen bleibt jederzeit möglich.
 
 ## Szenen-Roadmap
 

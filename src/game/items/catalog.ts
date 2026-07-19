@@ -6,7 +6,10 @@ export type ItemId =
   | "tin_can"
   | "string"
   | "note"
-  | "magnet";
+  | "magnet"
+  | "smooth_stone"
+  | "red_leaf"
+  | "bottle_cap";
 
 export type ItemDef = {
   id: ItemId;
@@ -64,6 +67,24 @@ export const ITEM_CATALOG: Record<ItemId, ItemDef> = {
     name: "Magnet",
     description: "Zieht metallische Geheimnisse an.",
     glyph: "MAG",
+  },
+  smooth_stone: {
+    id: "smooth_stone",
+    name: "Glatter Stein",
+    description: "Schön rund. Vielleicht kann man ihn irgendwo hineinwerfen.",
+    glyph: "STE",
+  },
+  red_leaf: {
+    id: "red_leaf",
+    name: "Rotes Blatt",
+    description: "Knistert interessant, öffnet aber vermutlich keine Schlösser.",
+    glyph: "BLT",
+  },
+  bottle_cap: {
+    id: "bottle_cap",
+    name: "Blauer Kronkorken",
+    description: "Glänzt wie ein winziger Hut.",
+    glyph: "KRO",
   },
 };
 

@@ -34,7 +34,12 @@ Werte stehen lokal in `.env.local` / Vorlage in `.env.example`. Speicherstände 
 
 ## Garten-MVP (aktuell spielbar)
 
-Zwei Wege, das Gartentor zu öffnen:
+Erkunde eine große Gartenlichtung mit Teich, Schuppen, Sitzplatz, natürlicher Baum- und
+Buschgrenze sowie einer sichtbaren Hintergrundlandschaft. Nicht jedes auffällige Item
+bringt dich weiter: Stein, Blatt und Kronkorken laden zu Experimenten ein und belegen
+wertvollen Inventarplatz.
+
+Zwei Wege öffnen wirklich das Gartentor:
 
 1. **Schlüssel:** Mit dem Igel reden → Blumentopf anklicken → Schlüssel aufs Tor
 2. **Buddeln:** Krümel aufheben → dem Spatz geben → Spaten am lockeren Erdreich am Tor

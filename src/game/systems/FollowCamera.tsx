@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import * as THREE from "three";
 import { useGameStore } from "@/game/store";
 
-const OFFSET = new THREE.Vector3(0, 7.5, 8.5);
+const OFFSET = new THREE.Vector3(0, 9.5, 11.5);
 const LOOK_LIFT = new THREE.Vector3(0, 0.4, 0);
 
 export function FollowCamera() {

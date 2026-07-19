@@ -21,6 +21,11 @@ export function GameHUD() {
           <p className="text-sm text-[#c5ddb8]">
             WASD bewegen · Nah sein · Anklicken
           </p>
+          {!gateOpen && (
+            <p className="mt-2 max-w-xs rounded-full border border-white/10 bg-[#142018]/65 px-3 py-1 text-xs text-[#d9e8d0] backdrop-blur">
+              Ziel: Finde einen Weg durchs Gartentor. Nicht alles ist nützlich.
+            </p>
+          )}
         </div>
         <Link
           href="/"
