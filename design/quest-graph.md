@@ -56,8 +56,9 @@ aber **kein** Fortschritts-Flag:
 | Bank / Vogelbad / Kompost | Untersuchen | Eigener kurzer Dialog |
 | Gießkanne / Schubkarre | Bewegen oder prüfen | Zu schwer, leer oder fest |
 
-Die Sackgassen sind fair: Jede reagiert sofort und sagt klar, dass sie das Gartentor
-nicht verändert. Alle drei Ablenkungs-Items können über das Inventar wieder abgelegt werden.
+Die Sackgassen reagieren sofort mit eigener Flavor — ohne im Text zu spoilern, dass sie
+das Gartentor nicht öffnen. Alle drei Ablenkungs-Items können über das Inventar wieder
+abgelegt werden.
 
 ## Hof (geplant)
 
