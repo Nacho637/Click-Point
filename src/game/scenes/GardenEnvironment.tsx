@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { useDetailMaps } from "@/game/rendering/textures";
 
 type Vec3 = [number, number, number];
 
@@ -90,11 +91,18 @@ export function Tree({
   scale?: number;
   rotation?: number;
 }) {
+  const bark = useDetailMaps("bark", 2, 1.2);
   return (
     <group position={position} scale={scale} rotation={[0, rotation, 0]}>
       <mesh castShadow position={[0, 1.45, 0]}>
         <cylinderGeometry args={[0.34, 0.5, 2.9, 7]} />
-        <meshStandardMaterial color="#725033" roughness={0.95} />
+        <meshStandardMaterial
+          color="#725033"
+          roughness={0.95}
+          map={bark.map}
+          normalMap={bark.normalMap}
+          normalScale={[0.6, 0.6]}
+        />
       </mesh>
       <mesh castShadow position={[-0.6, 3.05, 0.05]} rotation={[0.1, 0, -0.1]}>
         <dodecahedronGeometry args={[1.25, 0]} />
@@ -146,11 +154,36 @@ export function GardenGround() {
     rotation: index * 0.7,
   }));
 
+  const lawn = useDetailMaps("grass", 16);
+  // Zweite Lage mit anderem Repeat + Drehung bricht sichtbares Kacheln.
+  const lawnBreakup = useDetailMaps("grass", 9.7);
+  const meadow = useDetailMaps("grass", 4.5);
+  const pathMain = useDetailMaps("dirt", 1.4, 9);
+  const pathSide = useDetailMaps("dirt", 1, 5);
+  const stone = useDetailMaps("stone", 1);
+
   return (
     <group>
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow position={[0, -0.04, 0]}>
         <circleGeometry args={[26, 56]} />
-        <meshStandardMaterial color="#659451" roughness={1} />
+        <meshStandardMaterial
+          color="#659451"
+          roughness={1}
+          map={lawn.map}
+          normalMap={lawn.normalMap}
+          normalScale={[0.4, 0.4]}
+        />
+      </mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0.75]} position={[0, -0.035, 0]}>
+        <circleGeometry args={[26, 56]} />
+        <meshStandardMaterial
+          color="#659451"
+          roughness={1}
+          map={lawnBreakup.map}
+          transparent
+          opacity={0.35}
+          depthWrite={false}
+        />
       </mesh>
       <mesh
         rotation={[-Math.PI / 2, 0, 0.08]}
@@ -159,7 +192,13 @@ export function GardenGround() {
         scale={[7.2, 5.4, 1]}
       >
         <circleGeometry args={[1, 32]} />
-        <meshStandardMaterial color="#5b8a49" roughness={1} />
+        <meshStandardMaterial
+          color="#5b8a49"
+          roughness={1}
+          map={meadow.map}
+          normalMap={meadow.normalMap}
+          normalScale={[0.4, 0.4]}
+        />
       </mesh>
       <mesh
         rotation={[-Math.PI / 2, 0, -0.15]}
@@ -168,7 +207,13 @@ export function GardenGround() {
         scale={[6.6, 6.3, 1]}
       >
         <circleGeometry args={[1, 32]} />
-        <meshStandardMaterial color="#709d58" roughness={1} />
+        <meshStandardMaterial
+          color="#709d58"
+          roughness={1}
+          map={meadow.map}
+          normalMap={meadow.normalMap}
+          normalScale={[0.4, 0.4]}
+        />
       </mesh>
 
       <mesh
@@ -178,7 +223,13 @@ export function GardenGround() {
         receiveShadow
       >
         <circleGeometry args={[1, 32]} />
-        <meshStandardMaterial color="#b99367" roughness={1} />
+        <meshStandardMaterial
+          color="#b99367"
+          roughness={1}
+          map={pathMain.map}
+          normalMap={pathMain.normalMap}
+          normalScale={[0.5, 0.5]}
+        />
       </mesh>
       <mesh
         rotation={[-Math.PI / 2, 0, -0.55]}
@@ -187,7 +238,13 @@ export function GardenGround() {
         receiveShadow
       >
         <circleGeometry args={[1, 32]} />
-        <meshStandardMaterial color="#b28b61" roughness={1} />
+        <meshStandardMaterial
+          color="#b28b61"
+          roughness={1}
+          map={pathSide.map}
+          normalMap={pathSide.normalMap}
+          normalScale={[0.5, 0.5]}
+        />
       </mesh>
       <mesh
         rotation={[-Math.PI / 2, 0, 0.65]}
@@ -196,20 +253,32 @@ export function GardenGround() {
         receiveShadow
       >
         <circleGeometry args={[1, 32]} />
-        <meshStandardMaterial color="#b28b61" roughness={1} />
+        <meshStandardMaterial
+          color="#b28b61"
+          roughness={1}
+          map={pathSide.map}
+          normalMap={pathSide.normalMap}
+          normalScale={[0.5, 0.5]}
+        />
       </mesh>
 
-      {steppingStones.map((stone, index) => (
+      {steppingStones.map((stone_, index) => (
         <mesh
           key={index}
           castShadow
           receiveShadow
-          position={[stone.x, 0.035, stone.z]}
-          rotation={[0, stone.rotation, 0]}
+          position={[stone_.x, 0.035, stone_.z]}
+          rotation={[0, stone_.rotation, 0]}
           scale={[1, 0.18, 0.7]}
         >
           <dodecahedronGeometry args={[0.48, 0]} />
-          <meshStandardMaterial color={index % 2 ? "#9b927f" : "#a8a08c"} roughness={1} />
+          <meshStandardMaterial
+            color={index % 2 ? "#9b927f" : "#a8a08c"}
+            roughness={1}
+            map={stone.map}
+            normalMap={stone.normalMap}
+            normalScale={[0.55, 0.55]}
+          />
         </mesh>
       ))}
 
@@ -220,7 +289,13 @@ export function GardenGround() {
         scale={[7.5, 4.8, 1]}
       >
         <circleGeometry args={[1, 32]} />
-        <meshStandardMaterial color="#6b9a54" roughness={1} />
+        <meshStandardMaterial
+          color="#6b9a54"
+          roughness={1}
+          map={meadow.map}
+          normalMap={meadow.normalMap}
+          normalScale={[0.4, 0.4]}
+        />
       </mesh>
 
       <FlowerPatch position={[-6.8, 0, 4.2]} colors={["#e56b62", "#f0c75e", "#d978b4"]} />
@@ -238,11 +313,18 @@ function FlowerPatch({ position, colors }: { position: Vec3; colors: string[] })
     [0.75, 0, 0.25],
     [0.05, 0, -0.8],
   ];
+  const soil = useDetailMaps("dirt", 1.5);
   return (
     <group position={position}>
       <mesh position={[0, 0.06, 0]} scale={[1.6, 0.12, 1.15]} castShadow>
         <dodecahedronGeometry args={[1, 0]} />
-        <meshStandardMaterial color="#60462d" roughness={1} />
+        <meshStandardMaterial
+          color="#60462d"
+          roughness={1}
+          map={soil.map}
+          normalMap={soil.normalMap}
+          normalScale={[0.5, 0.5]}
+        />
       </mesh>
       {offsets.map((offset, index) => (
         <group key={index} position={offset}>
@@ -261,6 +343,8 @@ function FlowerPatch({ position, colors }: { position: Vec3; colors: string[] })
 }
 
 export function NaturalBoundary() {
+  const rock = useDetailMaps("stone", 1.2);
+  const bark = useDetailMaps("bark", 2, 1.2);
   return (
     <group>
       {treePositions.map(([position, scale, rotation], index) => (
@@ -288,17 +372,35 @@ export function NaturalBoundary() {
           scale={[1.3, 0.75, 1]}
         >
           <dodecahedronGeometry args={[0.6, 0]} />
-          <meshStandardMaterial color={index % 2 ? "#76766d" : "#8b8778"} roughness={1} />
+          <meshStandardMaterial
+            color={index % 2 ? "#76766d" : "#8b8778"}
+            roughness={1}
+            map={rock.map}
+            normalMap={rock.normalMap}
+            normalScale={[0.55, 0.55]}
+          />
         </mesh>
       ))}
       <group position={[-8.4, 0.35, 12.2]} rotation={[0, 0.35, -0.12]}>
         <mesh castShadow rotation={[0, 0, Math.PI / 2]}>
           <cylinderGeometry args={[0.32, 0.42, 3.4, 8]} />
-          <meshStandardMaterial color="#735136" roughness={1} />
+          <meshStandardMaterial
+            color="#735136"
+            roughness={1}
+            map={bark.map}
+            normalMap={bark.normalMap}
+            normalScale={[0.6, 0.6]}
+          />
         </mesh>
         <mesh castShadow position={[1.4, 0.2, 0.25]}>
           <cylinderGeometry args={[0.08, 0.13, 1.2, 6]} />
-          <meshStandardMaterial color="#735136" roughness={1} />
+          <meshStandardMaterial
+            color="#735136"
+            roughness={1}
+            map={bark.map}
+            normalMap={bark.normalMap}
+            normalScale={[0.6, 0.6]}
+          />
         </mesh>
       </group>
     </group>
@@ -367,15 +469,29 @@ function Cloud({ position, scale }: { position: Vec3; scale: number }) {
 }
 
 export function Gate({ open }: { open: boolean }) {
+  const post = useDetailMaps("bark", 1, 1);
+  const plank = useDetailMaps("planks", 1, 1);
   return (
     <group position={[0, 0, -10.4]}>
       <mesh position={[-1.65, 1, 0]} castShadow>
         <cylinderGeometry args={[0.2, 0.28, 2, 8]} />
-        <meshStandardMaterial color="#63482f" roughness={1} />
+        <meshStandardMaterial
+          color="#63482f"
+          roughness={1}
+          map={post.map}
+          normalMap={post.normalMap}
+          normalScale={[0.6, 0.6]}
+        />
       </mesh>
       <mesh position={[1.65, 1, 0]} castShadow>
         <cylinderGeometry args={[0.2, 0.28, 2, 8]} />
-        <meshStandardMaterial color="#63482f" roughness={1} />
+        <meshStandardMaterial
+          color="#63482f"
+          roughness={1}
+          map={post.map}
+          normalMap={post.normalMap}
+          normalScale={[0.6, 0.6]}
+        />
       </mesh>
       <group position={[-2.2, 0, 0.1]} scale={[1.2, 1.2, 1.2]}>
         <Bush position={[0, 0, 0]} />
@@ -388,16 +504,34 @@ export function Gate({ open }: { open: boolean }) {
           {[0, 1, 2, 3, 4].map((index) => (
             <mesh key={index} castShadow position={[(index - 2) * 0.62, 0, 0]}>
               <boxGeometry args={[0.45, index % 2 ? 1.55 : 1.75, 0.14]} />
-              <meshStandardMaterial color="#89663d" roughness={1} />
+              <meshStandardMaterial
+                color="#89663d"
+                roughness={1}
+                map={plank.map}
+                normalMap={plank.normalMap}
+                normalScale={[0.5, 0.5]}
+              />
             </mesh>
           ))}
           <mesh castShadow position={[0, 0.2, 0.08]}>
             <boxGeometry args={[3, 0.2, 0.18]} />
-            <meshStandardMaterial color="#765635" roughness={1} />
+            <meshStandardMaterial
+              color="#765635"
+              roughness={1}
+              map={plank.map}
+              normalMap={plank.normalMap}
+              normalScale={[0.5, 0.5]}
+            />
           </mesh>
           <mesh castShadow position={[0, -0.35, 0.08]}>
             <boxGeometry args={[3, 0.2, 0.18]} />
-            <meshStandardMaterial color="#765635" roughness={1} />
+            <meshStandardMaterial
+              color="#765635"
+              roughness={1}
+              map={plank.map}
+              normalMap={plank.normalMap}
+              normalScale={[0.5, 0.5]}
+            />
           </mesh>
         </group>
       )}
@@ -406,7 +540,13 @@ export function Gate({ open }: { open: boolean }) {
           {[0, 1, 2, 3, 4].map((index) => (
             <mesh key={index} castShadow position={[(index - 2) * 0.62, 0, 0]}>
               <boxGeometry args={[0.45, index % 2 ? 1.55 : 1.75, 0.14]} />
-              <meshStandardMaterial color="#89663d" roughness={1} />
+              <meshStandardMaterial
+                color="#89663d"
+                roughness={1}
+                map={plank.map}
+                normalMap={plank.normalMap}
+                normalScale={[0.5, 0.5]}
+              />
             </mesh>
           ))}
         </group>
@@ -416,6 +556,7 @@ export function Gate({ open }: { open: boolean }) {
 }
 
 export function Pond({ children }: { children?: ReactNode }) {
+  const rock = useDetailMaps("stone", 1);
   return (
     <group>
       <mesh rotation={[-Math.PI / 2, 0, -0.2]} position={[0, 0.04, 0]} scale={[2.6, 1.7, 1]}>
@@ -440,7 +581,13 @@ export function Pond({ children }: { children?: ReactNode }) {
           rotation={[0, index * 0.8, 0]}
         >
           <dodecahedronGeometry args={[0.48, 0]} />
-          <meshStandardMaterial color="#85867d" roughness={1} />
+          <meshStandardMaterial
+            color="#85867d"
+            roughness={1}
+            map={rock.map}
+            normalMap={rock.normalMap}
+            normalScale={[0.55, 0.55]}
+          />
         </mesh>
       ))}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-0.7, 0.075, 0.2]}>
@@ -457,11 +604,19 @@ export function Pond({ children }: { children?: ReactNode }) {
 }
 
 export function GardenShed() {
+  const wall = useDetailMaps("planks", 2, 1);
+  const door = useDetailMaps("planks", 1, 1);
   return (
     <group>
       <mesh castShadow position={[0, 1.35, 0]}>
         <boxGeometry args={[4, 2.7, 3.2]} />
-        <meshStandardMaterial color="#806044" roughness={1} />
+        <meshStandardMaterial
+          color="#806044"
+          roughness={1}
+          map={wall.map}
+          normalMap={wall.normalMap}
+          normalScale={[0.5, 0.5]}
+        />
       </mesh>
       <mesh castShadow position={[0, 3.15, 0]} rotation={[0, Math.PI / 4, 0]}>
         <coneGeometry args={[3.15, 1.5, 4]} />
@@ -469,7 +624,13 @@ export function GardenShed() {
       </mesh>
       <mesh position={[0, 1.2, 1.63]}>
         <boxGeometry args={[1.45, 2.25, 0.1]} />
-        <meshStandardMaterial color="#5c412f" roughness={1} />
+        <meshStandardMaterial
+          color="#5c412f"
+          roughness={1}
+          map={door.map}
+          normalMap={door.normalMap}
+          normalScale={[0.5, 0.5]}
+        />
       </mesh>
       <mesh position={[0.5, 1.2, 1.72]}>
         <sphereGeometry args={[0.08, 8, 8]} />
@@ -484,15 +645,28 @@ export function GardenShed() {
 }
 
 export function Bench() {
+  const wood = useDetailMaps("planks", 1.6, 0.6);
   return (
     <group>
       <mesh castShadow position={[0, 0.55, 0]}>
         <boxGeometry args={[2.6, 0.18, 0.65]} />
-        <meshStandardMaterial color="#8a633e" roughness={1} />
+        <meshStandardMaterial
+          color="#8a633e"
+          roughness={1}
+          map={wood.map}
+          normalMap={wood.normalMap}
+          normalScale={[0.5, 0.5]}
+        />
       </mesh>
       <mesh castShadow position={[0, 1.1, 0.28]} rotation={[-0.12, 0, 0]}>
         <boxGeometry args={[2.6, 0.85, 0.14]} />
-        <meshStandardMaterial color="#8a633e" roughness={1} />
+        <meshStandardMaterial
+          color="#8a633e"
+          roughness={1}
+          map={wood.map}
+          normalMap={wood.normalMap}
+          normalScale={[0.5, 0.5]}
+        />
       </mesh>
       {[-0.95, 0.95].map((x) => (
         <group key={x}>
@@ -511,15 +685,28 @@ export function Bench() {
 }
 
 export function BirdBath() {
+  const stone = useDetailMaps("stone", 1.2);
   return (
     <group>
       <mesh castShadow position={[0, 0.7, 0]}>
         <cylinderGeometry args={[0.18, 0.34, 1.35, 10]} />
-        <meshStandardMaterial color="#a5a095" roughness={1} />
+        <meshStandardMaterial
+          color="#a5a095"
+          roughness={1}
+          map={stone.map}
+          normalMap={stone.normalMap}
+          normalScale={[0.55, 0.55]}
+        />
       </mesh>
       <mesh castShadow position={[0, 1.38, 0]} scale={[1, 0.25, 1]}>
         <sphereGeometry args={[0.68, 16, 8]} />
-        <meshStandardMaterial color="#aaa59a" roughness={1} />
+        <meshStandardMaterial
+          color="#aaa59a"
+          roughness={1}
+          map={stone.map}
+          normalMap={stone.normalMap}
+          normalScale={[0.55, 0.55]}
+        />
       </mesh>
       <mesh position={[0, 1.52, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <circleGeometry args={[0.52, 24]} />
@@ -595,6 +782,7 @@ export function Snail() {
 }
 
 export function Wildblumenwiese() {
+  const meadow = useDetailMaps("grass", 3);
   const flowers: Array<[Vec3, string]> = [
     [[-1.9, 0, -0.8], "#e56b62"],
     [[-1.2, 0, 0.9], "#f0c75e"],
@@ -613,7 +801,13 @@ export function Wildblumenwiese() {
     <group>
       <mesh rotation={[-Math.PI / 2, 0, 0.2]} receiveShadow position={[0, -0.01, 0]} scale={[3.6, 2.8, 1]}>
         <circleGeometry args={[1, 32]} />
-        <meshStandardMaterial color="#7fa85f" roughness={1} />
+        <meshStandardMaterial
+          color="#7fa85f"
+          roughness={1}
+          map={meadow.map}
+          normalMap={meadow.normalMap}
+          normalScale={[0.4, 0.4]}
+        />
       </mesh>
       {flowers.map(([offset, color], index) => (
         <group key={index} position={offset}>
@@ -632,6 +826,7 @@ export function Wildblumenwiese() {
 }
 
 export function Gemuesebeet() {
+  const soil = useDetailMaps("dirt", 1.8, 1.2);
   const lettuce: Vec3[] = [
     [-1.4, 0.22, -0.7],
     [-0.4, 0.22, -0.7],
@@ -648,7 +843,13 @@ export function Gemuesebeet() {
     <group>
       <mesh castShadow receiveShadow position={[0, 0.09, 0]}>
         <boxGeometry args={[4.2, 0.18, 3]} />
-        <meshStandardMaterial color="#6b4c30" roughness={1} />
+        <meshStandardMaterial
+          color="#6b4c30"
+          roughness={1}
+          map={soil.map}
+          normalMap={soil.normalMap}
+          normalScale={[0.5, 0.5]}
+        />
       </mesh>
       {lettuce.map((position, index) => (
         <mesh key={`lettuce-${index}`} castShadow position={position} scale={[1, 0.75, 1]}>
@@ -667,12 +868,19 @@ export function Gemuesebeet() {
 }
 
 export function AlteEiche() {
+  const bark = useDetailMaps("bark", 2.5, 1.4);
   return (
     <group>
       <Tree position={[0, 0, 0]} scale={2.4} rotation={0.4} />
       <mesh castShadow position={[0, 1.1, 0]}>
         <cylinderGeometry args={[0.65, 0.95, 2.2, 9]} />
-        <meshStandardMaterial color="#6a4a2f" roughness={1} />
+        <meshStandardMaterial
+          color="#6a4a2f"
+          roughness={1}
+          map={bark.map}
+          normalMap={bark.normalMap}
+          normalScale={[0.7, 0.7]}
+        />
       </mesh>
       <mesh castShadow position={[0.9, 0.12, 0.4]} scale={[1.4, 0.4, 0.8]}>
         <dodecahedronGeometry args={[0.4, 0]} />
