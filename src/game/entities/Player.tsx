@@ -70,18 +70,30 @@ export function Player() {
     );
 
     // Idle breath + tiny walk bounce keep the silhouette lively without a rig.
+    // Applied on the body subgroup so root position (and the follow camera) stay steady.
     const t = state.clock.elapsedTime;
     const mesh = body.current;
     if (mesh) {
       const breath = 1 + Math.sin(t * 2.4) * 0.018;
-      const bob = moving.current ? Math.abs(Math.sin(t * 10)) * 0.045 : Math.sin(t * 2.4) * 0.012;
-      const sway = moving.current ? Math.sin(t * 10) * 0.06 : Math.sin(t * 1.3) * 0.02;
+      const bob = moving.current
+        ? Math.abs(Math.sin(t * 10)) * 0.045
+        : Math.sin(t * 2.4) * 0.012;
+      const sway = moving.current
+        ? Math.sin(t * 10) * 0.06
+        : Math.sin(t * 1.3) * 0.02;
       mesh.scale.set(breath, 1 / Math.sqrt(breath), breath);
       mesh.position.y = bob;
       mesh.rotation.z = sway;
     }
 
-    setPlayerPosition([g.position.x, g.position.y, g.position.z]);
+    const prev = useGameStore.getState().playerPosition;
+    if (
+      prev[0] !== g.position.x ||
+      prev[1] !== g.position.y ||
+      prev[2] !== g.position.z
+    ) {
+      setPlayerPosition([g.position.x, g.position.y, g.position.z]);
+    }
   });
 
   return (

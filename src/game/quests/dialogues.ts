@@ -129,7 +129,7 @@ export const DIALOGUES: Record<DialogueId, DialogueLine[]> = {
   stone_pickup: [
     {
       speaker: "System",
-      text: "Ein ungewöhnlich glatter Stein. Er sieht wichtig aus. Das muss aber nichts heißen.",
+      text: "Ein ungewöhnlich glatter Stein. Er liegt genau richtig in der Pfote.",
     },
   ],
   leaf_pickup: [
@@ -153,19 +153,19 @@ export const DIALOGUES: Record<DialogueId, DialogueLine[]> = {
   pond_splash: [
     {
       speaker: "System",
-      text: "Platsch! Der glatte Stein hüpft zweimal übers Wasser. Das Tor zeigt sich unbeeindruckt.",
+      text: "Platsch! Der glatte Stein hüpft zweimal übers Wasser — ein sauberer Bogen.",
     },
   ],
   frog_idle: [
     {
       speaker: "Frosch Fridolin",
-      text: "Quak. Ich kenne mich mit Fliegen aus, nicht mit Gartentoren.",
+      text: "Quak. Ich kenne mich mit Fliegen aus — und mit richtig guten Platschern.",
     },
   ],
   frog_splash: [
     {
       speaker: "Frosch Fridolin",
-      text: "Eine solide Acht von zehn für den Platscher. Für einen Schlüssel gibt es trotzdem null Punkte.",
+      text: "Eine solide Acht von zehn für den Platscher. Technik, Höhe, Nachhall — respektabel!",
     },
   ],
   snail_idle: [
@@ -181,13 +181,13 @@ export const DIALOGUES: Record<DialogueId, DialogueLine[]> = {
     },
     {
       speaker: "System",
-      text: "Suse ist glücklich. Am Gartentor ändert das rein gar nichts.",
+      text: "Suse nimmt das Blatt mit und schlängelt zufrieden weiter.",
     },
   ],
   gnome_idle: [
     {
       speaker: "Gartenzwerg Günter",
-      text: "Ich bewache die Tulpen. Geheimnisse? Nein. Ich stehe hier wirklich nur dekorativ herum.",
+      text: "Ich bewache die Tulpen. Tag und Nacht. Vor allem die gelben.",
     },
   ],
   gnome_cap: [
@@ -197,7 +197,7 @@ export const DIALOGUES: Record<DialogueId, DialogueLine[]> = {
     },
     {
       speaker: "System",
-      text: "Günter sieht wichtiger aus. Das Tor bleibt zu.",
+      text: "Günter strafft die Schultern. Der Orden sitzt perfekt.",
     },
   ],
   shed_locked: [
@@ -215,7 +215,7 @@ export const DIALOGUES: Record<DialogueId, DialogueLine[]> = {
   birdbath: [
     {
       speaker: "System",
-      text: "Klares Wasser, drei Federn und kein geheimer Hebel. Du hast gründlich nachgesehen.",
+      text: "Klares Wasser und drei Federn. Du hast gründlich nachgesehen.",
     },
   ],
   bench: [
@@ -227,19 +227,19 @@ export const DIALOGUES: Record<DialogueId, DialogueLine[]> = {
   compost: [
     {
       speaker: "System",
-      text: "Der Kompost riecht nach Abenteuer, aber eher nach der unangenehmen Sorte. Kein brauchbares Item.",
+      text: "Der Kompost riecht nach Abenteuer, aber eher nach der unangenehmen Sorte.",
     },
   ],
   watering_can: [
     {
       speaker: "System",
-      text: "Die Gießkanne ist fast so groß wie du und leider leer. Schieben kannst du sie auch nicht.",
+      text: "Die Gießkanne ist fast so groß wie du und leider leer.",
     },
   ],
   wheelbarrow: [
     {
       speaker: "System",
-      text: "Die Schubkarre quietscht eindrucksvoll, fährt aber keinen Zentimeter. Sackgasse.",
+      text: "Die Schubkarre quietscht eindrucksvoll, fährt aber keinen Zentimeter.",
     },
   ],
 };
