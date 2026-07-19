@@ -77,7 +77,7 @@ export const ITEM_CATALOG: Record<ItemId, ItemDef> = {
   red_leaf: {
     id: "red_leaf",
     name: "Rotes Blatt",
-    description: "Knistert interessant, öffnet aber vermutlich keine Schlösser.",
+    description: "Knistert interessant und riecht nach Herbst.",
     glyph: "BLT",
   },
   bottle_cap: {
