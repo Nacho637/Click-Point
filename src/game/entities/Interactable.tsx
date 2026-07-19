@@ -11,6 +11,8 @@ type InteractableProps = {
   position: [number, number, number];
   radius?: number;
   onInteract: () => void;
+  /** „Anschauen“-Verb: Beschreibung statt normaler Interaktion. */
+  onLook?: () => void;
   children: ReactNode;
   disabled?: boolean;
 };
@@ -20,12 +22,14 @@ export function Interactable({
   position,
   radius = 1.6,
   onInteract,
+  onLook,
   children,
   disabled = false,
 }: InteractableProps) {
   const group = useRef<Group>(null);
   const [hovered, setHovered] = useState(false);
-  const dialogueOpen = useGameStore((s) => s.dialogue !== null);
+  const uiOpen = useGameStore((s) => s.dialogue !== null || s.choices !== null);
+  const lookMode = useGameStore((s) => s.verbMode === "look");
   const setNearby = useGameStore((s) => s.setNearby);
   const nearbyId = useGameStore((s) => s.nearbyId);
 
@@ -57,7 +61,7 @@ export function Interactable({
       ref={group}
       position={position}
       onPointerOver={(e) => {
-        if (!isNearby || dialogueOpen) return;
+        if (!isNearby || uiOpen) return;
         e.stopPropagation();
         setHovered(true);
         document.body.style.cursor = "pointer";
@@ -67,9 +71,19 @@ export function Interactable({
         document.body.style.cursor = "auto";
       }}
       onClick={(e) => {
-        if (!isNearby || dialogueOpen || disabled) return;
+        if (!isNearby || uiOpen || disabled) return;
         e.stopPropagation();
+        if (lookMode && onLook) {
+          onLook();
+          return;
+        }
         onInteract();
+      }}
+      onContextMenu={(e) => {
+        // Rechtsklick schaut immer an — klassisches Zwei-Verben-Muster.
+        if (!isNearby || uiOpen || disabled) return;
+        e.stopPropagation();
+        (onLook ?? onInteract)();
       }}
     >
       {children}
@@ -77,8 +91,8 @@ export function Interactable({
         <mesh position={[0, 1.15, 0]}>
           <sphereGeometry args={[0.08, 10, 10]} />
           <meshStandardMaterial
-            color={hovered ? "#f0c75e" : "#ffe08a"}
-            emissive="#f0c75e"
+            color={lookMode ? "#8bb7cc" : hovered ? "#f0c75e" : "#ffe08a"}
+            emissive={lookMode ? "#8bb7cc" : "#f0c75e"}
             emissiveIntensity={0.6}
           />
         </mesh>

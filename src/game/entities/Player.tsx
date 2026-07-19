@@ -8,7 +8,7 @@ import { useGameStore } from "@/game/store";
 import { useKeyboard } from "@/game/systems/keyboard";
 
 const SPEED = 3.2;
-const BOUNDS = { minX: -12.4, maxX: 12.4, minZ: -10.8, maxZ: 11.8 };
+const BOUNDS = { minX: -17.5, maxX: 17.5, minZ: -10.8, maxZ: 17 };
 const START_POSITION: [number, number, number] = [0, 0.35, 8];
 
 const FUR = "#d8b48a";
@@ -29,7 +29,7 @@ export function Player() {
   const group = useRef<Group>(null);
   const body = useRef<Group>(null);
   const keys = useKeyboard();
-  const dialogueOpen = useGameStore((s) => s.dialogue !== null);
+  const uiOpen = useGameStore((s) => s.dialogue !== null || s.choices !== null);
   const setPlayerPosition = useGameStore((s) => s.setPlayerPosition);
   const gateOpen = useGameStore((s) => s.flags.gate_open);
   const input = useMemo(() => new THREE.Vector3(), []);
@@ -37,7 +37,7 @@ export function Player() {
 
   useFrame((state, delta) => {
     const g = group.current;
-    if (!g || dialogueOpen) return;
+    if (!g || uiOpen) return;
 
     const { forward, backward, left, right } = keys.current;
     input.set(

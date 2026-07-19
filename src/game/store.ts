@@ -12,6 +12,11 @@ import {
   type DialogueLine,
 } from "@/game/quests/dialogues";
 import {
+  TOPIC_MENUS,
+  type DialogueChoice,
+  type TopicMenuId,
+} from "@/game/quests/dialogueTrees";
+import {
   INITIAL_FLAGS,
   type FlagMap,
   type QuestFlag,
@@ -27,6 +32,10 @@ type GameState = {
   selectedSlot: number | null;
   dialogue: DialogueLine[] | null;
   dialogueIndex: number;
+  choices: DialogueChoice[] | null;
+  choiceMenuId: TopicMenuId | null;
+  askedTopics: string[];
+  verbMode: "use" | "look";
   nearbyId: string | null;
   toast: string | null;
   playerPosition: [number, number, number];
@@ -36,6 +45,11 @@ type GameState = {
   selectSlot: (index: number | null) => void;
   startDialogue: (id: DialogueId) => void;
   advanceDialogue: () => void;
+  openTopics: (menuId: TopicMenuId) => void;
+  openTopicsAfterDialogue: (menuId: TopicMenuId, introId: DialogueId) => void;
+  chooseTopic: (choice: DialogueChoice) => void;
+  closeChoices: () => void;
+  toggleVerbMode: () => void;
   setFlag: (flag: QuestFlag, value?: boolean) => void;
   hasFlag: (flag: QuestFlag) => boolean;
   hasItem: (item: ItemId) => boolean;
@@ -69,6 +83,10 @@ export const useGameStore = create<GameState>((set, get) => ({
   selectedSlot: null,
   dialogue: null,
   dialogueIndex: 0,
+  choices: null,
+  choiceMenuId: null,
+  askedTopics: [],
+  verbMode: "use",
   nearbyId: null,
   toast: null,
   playerPosition: [0, 0.35, 8],
@@ -88,14 +106,46 @@ export const useGameStore = create<GameState>((set, get) => ({
     }),
 
   advanceDialogue: () => {
-    const { dialogue, dialogueIndex } = get();
+    const { dialogue, dialogueIndex, choiceMenuId } = get();
     if (!dialogue) return;
     if (dialogueIndex + 1 >= dialogue.length) {
-      set({ dialogue: null, dialogueIndex: 0 });
+      // Nach einem Themen-Dialog kehrt das Gespräch zum Themenmenü zurück.
+      set({
+        dialogue: null,
+        dialogueIndex: 0,
+        choices: choiceMenuId ? TOPIC_MENUS[choiceMenuId] : null,
+      });
       return;
     }
     set({ dialogueIndex: dialogueIndex + 1 });
   },
+
+  openTopics: (menuId) =>
+    set({ choices: TOPIC_MENUS[menuId], choiceMenuId: menuId }),
+
+  openTopicsAfterDialogue: (menuId, introId) =>
+    set({
+      choiceMenuId: menuId,
+      dialogue: DIALOGUES[introId],
+      dialogueIndex: 0,
+    }),
+
+  chooseTopic: (choice) => {
+    const { askedTopics } = get();
+    set({
+      choices: null,
+      askedTopics: askedTopics.includes(choice.dialogueId)
+        ? askedTopics
+        : [...askedTopics, choice.dialogueId],
+      ...(choice.bye ? { choiceMenuId: null } : {}),
+    });
+    get().startDialogue(choice.dialogueId);
+  },
+
+  closeChoices: () => set({ choices: null, choiceMenuId: null }),
+
+  toggleVerbMode: () =>
+    set((state) => ({ verbMode: state.verbMode === "use" ? "look" : "use" })),
 
   setFlag: (flag, value = true) =>
     set((state) => ({
@@ -170,3 +220,9 @@ export const useGameStore = create<GameState>((set, get) => ({
       flags: { ...INITIAL_FLAGS, ...data.flags },
     }),
 }));
+
+// Dev-only: Store für Debugging/E2E-Tests in der Konsole erreichbar machen.
+if (process.env.NODE_ENV !== "production" && typeof window !== "undefined") {
+  (window as unknown as { __gameStore?: typeof useGameStore }).__gameStore =
+    useGameStore;
+}

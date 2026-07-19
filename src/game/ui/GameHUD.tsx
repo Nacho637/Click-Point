@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useGameStore } from "@/game/store";
+import { ChoiceBox } from "@/game/ui/ChoiceBox";
 import { DialogBox } from "@/game/ui/DialogBox";
 import { InventoryBar } from "@/game/ui/InventoryBar";
 
@@ -9,7 +10,9 @@ export function GameHUD() {
   const nearbyId = useGameStore((s) => s.nearbyId);
   const toast = useGameStore((s) => s.toast);
   const gateOpen = useGameStore((s) => s.flags.gate_open);
-  const dialogueOpen = useGameStore((s) => s.dialogue !== null);
+  const uiOpen = useGameStore((s) => s.dialogue !== null || s.choices !== null);
+  const lookMode = useGameStore((s) => s.verbMode === "look");
+  const toggleVerbMode = useGameStore((s) => s.toggleVerbMode);
 
   return (
     <div className="pointer-events-none absolute inset-0 z-10">
@@ -27,17 +30,31 @@ export function GameHUD() {
             </p>
           )}
         </div>
-        <Link
-          href="/"
-          className="rounded-full border border-[#4d6b42] bg-[#142018]/80 px-3 py-1.5 text-sm text-[#d9e8d0] backdrop-blur hover:border-[#f0c75e]"
-        >
-          Menü
-        </Link>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={toggleVerbMode}
+            title="Anschauen-Modus: Klicks zeigen Beschreibungen statt Aktionen (Rechtsklick schaut immer)"
+            className={`rounded-full border px-3 py-1.5 text-sm backdrop-blur transition ${
+              lookMode
+                ? "border-[#f0c75e] bg-[#f0c75e]/20 text-[#f0c75e]"
+                : "border-[#4d6b42] bg-[#142018]/80 text-[#d9e8d0] hover:border-[#f0c75e]"
+            }`}
+          >
+            👁 Anschauen
+          </button>
+          <Link
+            href="/"
+            className="rounded-full border border-[#4d6b42] bg-[#142018]/80 px-3 py-1.5 text-sm text-[#d9e8d0] backdrop-blur hover:border-[#f0c75e]"
+          >
+            Menü
+          </Link>
+        </div>
       </header>
 
-      {!dialogueOpen && nearbyId && (
+      {!uiOpen && nearbyId && (
         <div className="absolute left-1/2 top-24 -translate-x-1/2 rounded-full border border-[#f0c75e]/50 bg-[#142018]/85 px-4 py-1.5 text-sm text-[#f0c75e] backdrop-blur">
-          Klicken zum Interagieren
+          {lookMode ? "Klicken zum Anschauen" : "Klicken zum Interagieren"}
         </div>
       )}
 
@@ -57,6 +74,7 @@ export function GameHUD() {
       )}
 
       <DialogBox />
+      <ChoiceBox />
 
       <div className="absolute inset-x-0 bottom-4 flex justify-center px-3">
         <InventoryBar />
