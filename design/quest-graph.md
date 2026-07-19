@@ -42,6 +42,23 @@ Start Garten
 
 Beide Pfade setzen dasselbe Flag `gate_open`.
 
+## Optionale Gartenpfade (bewusste Sackgassen)
+
+Diese Interaktionen belohnen Erkundung und verbrauchen Zeit bzw. Inventarplatz, setzen
+aber **kein** Fortschritts-Flag:
+
+| Fund / Objekt | Experiment | Reaktion |
+|---|---|---|
+| Glatter Stein | Auf Teich oder Frosch anwenden | Platscher + Bewertung vom Frosch |
+| Rotes Blatt | Schnecke geben | Suse nimmt Reiseproviant |
+| Blauer Kronkorken | Gartenzwerg geben | Günter trägt ihn als Orden |
+| Rostiger Schlüssel | Am Schuppen testen | Passt ausdrücklich nicht |
+| Bank / Vogelbad / Kompost | Untersuchen | Eigener kurzer Dialog |
+| Gießkanne / Schubkarre | Bewegen oder prüfen | Zu schwer, leer oder fest |
+
+Die Sackgassen sind fair: Jede reagiert sofort und sagt klar, dass sie das Gartentor
+nicht verändert. Alle drei Ablenkungs-Items können über das Inventar wieder abgelegt werden.
+
 ## Hof (geplant)
 
 - Hund blockiert: Hundekeks **oder** Blechdose werfen  

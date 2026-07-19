@@ -71,7 +71,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   dialogueIndex: 0,
   nearbyId: null,
   toast: null,
-  playerPosition: [0, 0.35, 2],
+  playerPosition: [0, 0.35, 8],
 
   setNearby: (id) => set({ nearbyId: id }),
   setPlayerPosition: (pos) => set({ playerPosition: pos }),

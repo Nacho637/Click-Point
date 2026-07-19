@@ -1,0 +1,11 @@
+id,role,type,description,size/ratio,style line ref,source
+garden_ground,Primary expanded playable meadow with layered path clearings,procedural 3D environment,"irregular grass clearing with curved dirt paths and flower patches","34x30 hero-units","STYLE FORMULA",generate
+natural_boundary,Soft visual and physical perimeter around the playable garden,procedural 3D environment,"mixed tree line bushes rocks and fallen logs with no continuous fence","40x36 hero-units","STYLE FORMULA",generate
+distant_backdrop,Background depth beyond the playable area,procedural 3D background,"layered distant hills tree silhouettes clouds and neighboring house roof","wide 16:9 vista","STYLE FORMULA",generate
+tree_variants,Landmarks and boundary canopy,procedural 3D props,"three rounded low-poly deciduous tree variants","3.5-5 hero-units","STYLE FORMULA",generate
+bush_variants,Boundary filler and garden composition,procedural 3D props,"clustered soft-faceted bushes with occasional berries","0.7-1.4 hero-units","STYLE FORMULA",generate
+pond_setpiece,Optional exploration landmark with non-progress interaction,procedural 3D prop,"small blue pond with reeds lily pads stones and frog","4x3 hero-units","STYLE FORMULA",generate
+garden_shed,Background landmark and optional locked interaction,procedural 3D prop,"small timber garden shed with green roof and stacked pots","4x3x3 hero-units","STYLE FORMULA",generate
+garden_props,Optional set dressing and interaction targets,procedural 3D props,"bench birdbath wheelbarrow watering can gnome compost and stump","0.5-2 hero-units","STYLE FORMULA",generate
+decoy_pickups,Inventory experiments that do not unlock the gate,procedural 3D props,"smooth stone red leaf and blue bottle cap","0.1-0.3 hero-units","STYLE FORMULA",generate
+garden_characters,Optional flavor NPCs,procedural 3D characters,"slow snail and pond frog with rounded silhouettes","0.3-0.5 hero-units","STYLE FORMULA",generate

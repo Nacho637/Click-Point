@@ -10,17 +10,23 @@ import { GameHUD } from "@/game/ui/GameHUD";
 function SceneLights() {
   return (
     <>
-      <color attach="background" args={["#87b7d9"]} />
-      <fog attach="fog" args={["#87b7d9", 18, 36]} />
-      <ambientLight intensity={0.55} />
+      <color attach="background" args={["#93c1d8"]} />
+      <fog attach="fog" args={["#a9c9d1", 30, 64]} />
+      <ambientLight intensity={0.5} color="#fff1d0" />
       <directionalLight
         castShadow
-        position={[8, 14, 6]}
-        intensity={1.15}
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
+        position={[-10, 18, 9]}
+        intensity={1.35}
+        color="#ffe8b2"
+        shadow-mapSize-width={1536}
+        shadow-mapSize-height={1536}
+        shadow-camera-left={-19}
+        shadow-camera-right={19}
+        shadow-camera-top={18}
+        shadow-camera-bottom={-18}
+        shadow-camera-far={55}
       />
-      <hemisphereLight args={["#b8d9f0", "#4f7a3a", 0.35]} />
+      <hemisphereLight args={["#c6e3ef", "#4b703b", 0.45]} />
     </>
   );
 }
@@ -32,9 +38,9 @@ export function GameCanvas() {
     <div className="relative h-[100dvh] w-full overflow-hidden bg-[#87b7d9]">
       <Canvas
         shadows
-        dpr={[1, 1.75]}
-        camera={{ position: [0, 7.5, 8.5], fov: 45, near: 0.1, far: 80 }}
-        gl={{ antialias: true }}
+        dpr={[1, 1.5]}
+        camera={{ position: [0, 9.5, 19.5], fov: 48, near: 0.1, far: 95 }}
+        gl={{ antialias: true, powerPreference: "high-performance" }}
       >
         <Suspense fallback={null}>
           <SceneLights />
