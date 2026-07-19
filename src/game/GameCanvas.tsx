@@ -4,6 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import { Atmosphere, SUN_POSITION } from "@/game/rendering/Atmosphere";
 import { DevPerf } from "@/game/rendering/DevPerf";
+import { Effects } from "@/game/rendering/Effects";
 import { GardenScene } from "@/game/scenes/GardenScene";
 import { FollowCamera } from "@/game/systems/FollowCamera";
 import { useSaveSync } from "@/game/systems/useSaveSync";
@@ -40,6 +41,7 @@ export function GameCanvas() {
   return (
     <div className="relative h-[100dvh] w-full overflow-hidden bg-[#87b7d9]">
       <Canvas
+        flat
         shadows="soft"
         dpr={[1, 1.75]}
         camera={{ position: [0, 9.5, 19.5], fov: 48, near: 0.1, far: 250 }}
@@ -59,6 +61,7 @@ export function GameCanvas() {
           <SceneLights />
           <FollowCamera />
           <GardenScene />
+          <Effects />
         </Suspense>
       </Canvas>
       <GameHUD />
