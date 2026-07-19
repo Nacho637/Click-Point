@@ -4,6 +4,7 @@ import { create } from "zustand";
 import {
   INVENTORY_SIZE,
   ITEM_CATALOG,
+  isImportantItem,
   type ItemId,
 } from "@/game/items/catalog";
 import {
@@ -200,10 +201,19 @@ export const useGameStore = create<GameState>((set, get) => ({
     const { selectedSlot, inventory } = get();
     if (selectedSlot === null || inventory[selectedSlot] === null) return;
     const item = inventory[selectedSlot];
+    if (!item) return;
+    // Wichtige Items dürfen nicht abgelegt werden – sonst könnte man sich das
+    // Spiel durch versehentliches Wegwerfen unlösbar machen.
+    if (isImportantItem(item)) {
+      get().showToast(
+        `${ITEM_CATALOG[item].name} ist zu wichtig zum Ablegen`,
+      );
+      return;
+    }
     const next = [...inventory];
     next[selectedSlot] = null;
     set({ inventory: next, selectedSlot: null });
-    if (item) get().showToast(`${ITEM_CATALOG[item].name} abgelegt`);
+    get().showToast(`${ITEM_CATALOG[item].name} abgelegt`);
   },
 
   getSavePayload: () => {

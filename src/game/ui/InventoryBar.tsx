@@ -1,6 +1,10 @@
 "use client";
 
-import { ITEM_CATALOG, INVENTORY_SIZE } from "@/game/items/catalog";
+import {
+  ITEM_CATALOG,
+  INVENTORY_SIZE,
+  isImportantItem,
+} from "@/game/items/catalog";
 import { useGameStore } from "@/game/store";
 
 export function InventoryBar() {
@@ -9,6 +13,11 @@ export function InventoryBar() {
   const selectSlot = useGameStore((s) => s.selectSlot);
   const dropSelected = useGameStore((s) => s.dropSelected);
   const dialogueOpen = useGameStore((s) => s.dialogue !== null);
+
+  const selectedItem =
+    selectedSlot !== null ? inventory[selectedSlot] ?? null : null;
+  const selectedIsImportant =
+    selectedItem !== null && isImportantItem(selectedItem);
 
   return (
     <div className="pointer-events-auto flex flex-col items-center gap-2">
@@ -42,11 +51,18 @@ export function InventoryBar() {
       </div>
       <button
         type="button"
-        disabled={dialogueOpen || selectedSlot === null || !inventory[selectedSlot ?? -1]}
+        disabled={
+          dialogueOpen || selectedItem === null || selectedIsImportant
+        }
         onClick={dropSelected}
+        title={
+          selectedIsImportant
+            ? "Wichtige Gegenstände lassen sich nicht ablegen"
+            : "Ausgewähltes ablegen"
+        }
         className="rounded-full border border-[#4d6b42] bg-[#1c2e22]/90 px-3 py-1 text-xs text-[#d9e8d0] transition hover:border-[#f0c75e] disabled:opacity-40"
       >
-        Ausgewähltes ablegen
+        {selectedIsImportant ? "Zu wichtig zum Ablegen" : "Ausgewähltes ablegen"}
       </button>
     </div>
   );
