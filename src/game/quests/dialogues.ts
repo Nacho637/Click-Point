@@ -153,7 +153,7 @@ export const DIALOGUES: Record<DialogueId, DialogueLine[]> = {
   pond_splash: [
     {
       speaker: "System",
-      text: "Platsch! Der glatte Stein hüpft zweimal übers Wasser und verschwindet mit einem leisen Blubb.",
+      text: "Platsch! Der glatte Stein hüpft zweimal übers Wasser — ein sauberer Bogen.",
     },
   ],
   frog_idle: [
