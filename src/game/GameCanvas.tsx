@@ -2,6 +2,7 @@
 
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
+import { DevPerf } from "@/game/rendering/DevPerf";
 import { GardenScene } from "@/game/scenes/GardenScene";
 import { FollowCamera } from "@/game/systems/FollowCamera";
 import { useSaveSync } from "@/game/systems/useSaveSync";
@@ -43,6 +44,7 @@ export function GameCanvas() {
         gl={{ antialias: true, powerPreference: "high-performance" }}
         onContextMenu={(e) => e.preventDefault()}
       >
+        <DevPerf />
         <Suspense fallback={null}>
           <SceneLights />
           <FollowCamera />
