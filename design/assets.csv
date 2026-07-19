@@ -9,3 +9,4 @@ garden_shed,Background landmark and optional locked interaction,procedural 3D pr
 garden_props,Optional set dressing and interaction targets,procedural 3D props,"bench birdbath wheelbarrow watering can gnome compost and stump","0.5-2 hero-units","STYLE FORMULA",generate
 decoy_pickups,Inventory experiments that do not unlock the gate,procedural 3D props,"smooth stone red leaf and blue bottle cap","0.1-0.3 hero-units","STYLE FORMULA",generate
 garden_characters,Optional flavor NPCs,procedural 3D characters,"slow snail and pond frog with rounded silhouettes","0.3-0.5 hero-units","STYLE FORMULA",generate
+player_guinea_pig,Playable hero character,procedural 3D character,"chubby cream-tan guinea pig with big shiny eyes pink ears belly patch cheeks and stubby paws; soft idle breath and walk bob","1.0 hero-unit","STYLE FORMULA",generate
