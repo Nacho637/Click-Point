@@ -7,7 +7,12 @@ export type QuestFlag =
   | "entered_house"
   | "stairs_clear"
   | "vault_open"
-  | "won";
+  | "won"
+  | "met_mouse"
+  | "met_bee"
+  | "met_worm"
+  | "met_squirrel"
+  | "met_blackbird";
 
 export type FlagMap = Record<QuestFlag, boolean>;
 
@@ -21,6 +26,11 @@ export const INITIAL_FLAGS: FlagMap = {
   stairs_clear: false,
   vault_open: false,
   won: false,
+  met_mouse: false,
+  met_bee: false,
+  met_worm: false,
+  met_squirrel: false,
+  met_blackbird: false,
 };
 
 export type SceneId = "garden" | "yard" | "hallway" | "upstairs" | "ending";

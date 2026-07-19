@@ -8,17 +8,31 @@ const treePositions: Array<[Vec3, number, number]> = [
   [[-14.4, 0, -10.5], 1.15, 0.2],
   [[-14.1, 0, -5.6], 0.9, -0.5],
   [[-14.7, 0, -0.5], 1.25, 0.9],
-  [[-14.2, 0, 5.3], 1, 0.3],
+  [[-21.2, 0, 8], 1, 0.3],
   [[-12.4, 0, 11.4], 1.2, -0.6],
   [[-7.2, 0, 13.2], 0.9, 0.5],
   [[6.7, 0, 13.3], 1.1, -0.4],
   [[12.1, 0, 11.2], 1.25, 0.7],
-  [[14.3, 0, 6], 0.95, -0.7],
+  [[21, 0, 7.6], 0.95, -0.7],
   [[14.5, 0, 0.8], 1.2, 0.1],
   [[14.1, 0, -5.2], 1, 0.8],
   [[13.7, 0, -10.4], 1.15, -0.3],
   [[-8.7, 0, -13.1], 0.95, 0.4],
   [[8.5, 0, -13.2], 1.05, -0.5],
+  [[-20.2, 0, -8], 1.1, 0.6],
+  [[-20.5, 0, -2], 0.95, -0.3],
+  [[-19.8, 0, 4.5], 1.2, 0.4],
+  [[-18.6, 0, 11], 1, -0.6],
+  [[-13, 0, 16.5], 1.15, 0.2],
+  [[-6.5, 0, 19.2], 0.9, -0.4],
+  [[6.8, 0, 19.4], 1.1, 0.7],
+  [[13.2, 0, 16.8], 1, -0.2],
+  [[19.9, 0, -8.5], 1.05, 0.5],
+  [[20.4, 0, -2.5], 1.2, -0.7],
+  [[19.6, 0, 4], 0.95, 0.3],
+  [[18.8, 0, 11.5], 1.15, -0.5],
+  [[-17.5, 0, -12.6], 1, 0.8],
+  [[17.2, 0, -12.8], 1.1, -0.6],
 ];
 
 const bushPositions: Array<[Vec3, number, string]> = [
@@ -38,6 +52,20 @@ const bushPositions: Array<[Vec3, number, string]> = [
   [[-5.2, 0, -12.8], 1.05, "#4c8240"],
   [[5.1, 0, -12.8], 0.9, "#397138"],
   [[10.8, 0, -11.7], 1.05, "#4a7c3e"],
+  [[-18.6, 0, -5.5], 1.1, "#3f7438"],
+  [[-17.9, 0, 1.5], 0.95, "#4b823f"],
+  [[-16.8, 0, 9], 1.15, "#376d35"],
+  [[-15.6, 0, 13.8], 0.9, "#4a7c3e"],
+  [[-11, 0, 17.2], 1.05, "#3c7639"],
+  [[-3.5, 0, 18.6], 1.2, "#4c8240"],
+  [[4, 0, 18.5], 0.95, "#397138"],
+  [[10.5, 0, 17.4], 1.1, "#4a7c3e"],
+  [[15.2, 0, 14.2], 0.9, "#3f7438"],
+  [[17.6, 0, 9.2], 1.15, "#4b823f"],
+  [[18.3, 0, 2], 1, "#376d35"],
+  [[18.1, 0, -5.8], 1.1, "#4a7c3e"],
+  [[-15.2, 0, -11.4], 0.85, "#3c7639"],
+  [[15, 0, -11.6], 0.95, "#4c8240"],
 ];
 
 const stonePositions: Vec3[] = [
@@ -47,6 +75,10 @@ const stonePositions: Vec3[] = [
   [13, 0.17, -0.2],
   [-12.3, 0.19, -6.6],
   [11.5, 0.23, -9.5],
+  [-17.8, 0.2, 7.4],
+  [-15.5, 0.19, 14.2],
+  [16.8, 0.21, 12.5],
+  [18.4, 0.18, -4.1],
 ];
 
 export function Tree({
@@ -117,7 +149,7 @@ export function GardenGround() {
   return (
     <group>
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow position={[0, -0.04, 0]}>
-        <circleGeometry args={[18.5, 48]} />
+        <circleGeometry args={[26, 56]} />
         <meshStandardMaterial color="#659451" roughness={1} />
       </mesh>
       <mesh
@@ -180,6 +212,16 @@ export function GardenGround() {
           <meshStandardMaterial color={index % 2 ? "#9b927f" : "#a8a08c"} roughness={1} />
         </mesh>
       ))}
+
+      <mesh
+        rotation={[-Math.PI / 2, 0, 0.3]}
+        receiveShadow
+        position={[1.5, -0.018, 14]}
+        scale={[7.5, 4.8, 1]}
+      >
+        <circleGeometry args={[1, 32]} />
+        <meshStandardMaterial color="#6b9a54" roughness={1} />
+      </mesh>
 
       <FlowerPatch position={[-6.8, 0, 4.2]} colors={["#e56b62", "#f0c75e", "#d978b4"]} />
       <FlowerPatch position={[6.7, 0, 2.4]} colors={["#f0c75e", "#efe8d4", "#8d71ba"]} />
@@ -547,6 +589,98 @@ export function Snail() {
       <mesh position={[0.14, 0.38, -0.09]} rotation={[-0.25, 0, -0.2]}>
         <cylinderGeometry args={[0.015, 0.018, 0.35, 5]} />
         <meshStandardMaterial color="#718046" />
+      </mesh>
+    </group>
+  );
+}
+
+export function Wildblumenwiese() {
+  const flowers: Array<[Vec3, string]> = [
+    [[-1.9, 0, -0.8], "#e56b62"],
+    [[-1.2, 0, 0.9], "#f0c75e"],
+    [[-0.4, 0, -1.4], "#d978b4"],
+    [[0.3, 0, 0.4], "#8d71ba"],
+    [[1.1, 0, -0.6], "#f0c75e"],
+    [[1.8, 0, 0.8], "#e56b62"],
+    [[-2.4, 0, 0.2], "#8d71ba"],
+    [[0.9, 0, 1.4], "#d978b4"],
+    [[2.3, 0, -0.1], "#efe8d4"],
+    [[-0.8, 0, -0.2], "#f0c75e"],
+    [[1.6, 0, -1.5], "#8d71ba"],
+    [[-1.6, 0, 1.7], "#e56b62"],
+  ];
+  return (
+    <group>
+      <mesh rotation={[-Math.PI / 2, 0, 0.2]} receiveShadow position={[0, -0.01, 0]} scale={[3.6, 2.8, 1]}>
+        <circleGeometry args={[1, 32]} />
+        <meshStandardMaterial color="#7fa85f" roughness={1} />
+      </mesh>
+      {flowers.map(([offset, color], index) => (
+        <group key={index} position={offset}>
+          <mesh position={[0, 0.26, 0]}>
+            <cylinderGeometry args={[0.02, 0.03, 0.45, 5]} />
+            <meshStandardMaterial color="#44753d" />
+          </mesh>
+          <mesh castShadow position={[0, 0.52, 0]}>
+            <dodecahedronGeometry args={[0.12, 0]} />
+            <meshStandardMaterial color={color} />
+          </mesh>
+        </group>
+      ))}
+    </group>
+  );
+}
+
+export function Gemuesebeet() {
+  const lettuce: Vec3[] = [
+    [-1.4, 0.22, -0.7],
+    [-0.4, 0.22, -0.7],
+    [0.6, 0.22, -0.7],
+    [1.5, 0.22, -0.7],
+  ];
+  const carrots: Vec3[] = [
+    [-1.5, 0.2, 0.6],
+    [-0.6, 0.2, 0.6],
+    [0.4, 0.2, 0.6],
+    [1.3, 0.2, 0.6],
+  ];
+  return (
+    <group>
+      <mesh castShadow receiveShadow position={[0, 0.09, 0]}>
+        <boxGeometry args={[4.2, 0.18, 3]} />
+        <meshStandardMaterial color="#6b4c30" roughness={1} />
+      </mesh>
+      {lettuce.map((position, index) => (
+        <mesh key={`lettuce-${index}`} castShadow position={position} scale={[1, 0.75, 1]}>
+          <dodecahedronGeometry args={[0.28, 0]} />
+          <meshStandardMaterial color={index % 2 ? "#5e9448" : "#6da653"} roughness={0.9} />
+        </mesh>
+      ))}
+      {carrots.map((position, index) => (
+        <mesh key={`carrot-${index}`} castShadow position={position}>
+          <coneGeometry args={[0.1, 0.32, 6]} />
+          <meshStandardMaterial color="#4e8340" roughness={0.9} />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+export function AlteEiche() {
+  return (
+    <group>
+      <Tree position={[0, 0, 0]} scale={2.4} rotation={0.4} />
+      <mesh castShadow position={[0, 1.1, 0]}>
+        <cylinderGeometry args={[0.65, 0.95, 2.2, 9]} />
+        <meshStandardMaterial color="#6a4a2f" roughness={1} />
+      </mesh>
+      <mesh castShadow position={[0.9, 0.12, 0.4]} scale={[1.4, 0.4, 0.8]}>
+        <dodecahedronGeometry args={[0.4, 0]} />
+        <meshStandardMaterial color="#6a4a2f" roughness={1} />
+      </mesh>
+      <mesh castShadow position={[-0.8, 0.1, -0.3]} scale={[1.2, 0.35, 0.7]}>
+        <dodecahedronGeometry args={[0.38, 0]} />
+        <meshStandardMaterial color="#725033" roughness={1} />
       </mesh>
     </group>
   );

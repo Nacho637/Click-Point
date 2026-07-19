@@ -4,6 +4,7 @@ import { Interactable } from "@/game/entities/Interactable";
 import { Player } from "@/game/entities/Player";
 import type { ItemId } from "@/game/items/catalog";
 import {
+  AlteEiche,
   Bench,
   BirdBath,
   CompostPile,
@@ -13,9 +14,11 @@ import {
   GardenGround,
   GardenShed,
   Gate,
+  Gemuesebeet,
   NaturalBoundary,
   Pond,
   Snail,
+  Wildblumenwiese,
 } from "@/game/scenes/GardenEnvironment";
 import { useGameStore } from "@/game/store";
 
@@ -79,6 +82,178 @@ function Sparrow() {
       <mesh castShadow position={[0, 0.48, 0]}>
         <cylinderGeometry args={[0.05, 0.08, 0.85, 7]} />
         <meshStandardMaterial color="#76583a" roughness={1} />
+      </mesh>
+    </group>
+  );
+}
+
+function Mouse() {
+  return (
+    <group rotation={[0, 0.6, 0]}>
+      <mesh castShadow position={[0, 0.16, 0]} scale={[1, 0.85, 1.3]}>
+        <sphereGeometry args={[0.16, 12, 10]} />
+        <meshStandardMaterial color="#8d8578" roughness={0.95} />
+      </mesh>
+      <mesh castShadow position={[0, 0.22, 0.2]}>
+        <sphereGeometry args={[0.11, 12, 10]} />
+        <meshStandardMaterial color="#9a9184" roughness={0.95} />
+      </mesh>
+      {[-0.07, 0.07].map((x) => (
+        <mesh key={x} castShadow position={[x, 0.34, 0.16]} scale={[1, 1, 0.3]}>
+          <sphereGeometry args={[0.07, 10, 8]} />
+          <meshStandardMaterial color="#b3a99a" roughness={0.9} />
+        </mesh>
+      ))}
+      <mesh position={[0, 0.2, 0.31]}>
+        <sphereGeometry args={[0.025, 8, 8]} />
+        <meshStandardMaterial color="#e08a7a" />
+      </mesh>
+      {[-0.04, 0.04].map((x) => (
+        <mesh key={x} position={[x, 0.26, 0.29]}>
+          <sphereGeometry args={[0.018, 8, 6]} />
+          <meshStandardMaterial color="#1b1a17" />
+        </mesh>
+      ))}
+      <mesh position={[0.05, 0.08, -0.28]} rotation={[0.5, 0.3, 1.2]}>
+        <cylinderGeometry args={[0.012, 0.022, 0.42, 5]} />
+        <meshStandardMaterial color="#c4a58e" roughness={0.8} />
+      </mesh>
+    </group>
+  );
+}
+
+function Bee() {
+  return (
+    <group position={[0, 0.85, 0]}>
+      <mesh castShadow scale={[1.25, 1, 1]}>
+        <sphereGeometry args={[0.16, 12, 10]} />
+        <meshStandardMaterial color="#e0b23e" roughness={0.85} />
+      </mesh>
+      <mesh scale={[1.28, 1.02, 1.02]} position={[0.02, 0, 0]}>
+        <cylinderGeometry args={[0.135, 0.135, 0.07, 12]} />
+        <meshStandardMaterial color="#3a3123" roughness={0.9} />
+      </mesh>
+      <mesh castShadow position={[0.2, 0.02, 0]}>
+        <sphereGeometry args={[0.09, 10, 8]} />
+        <meshStandardMaterial color="#3a3123" roughness={0.9} />
+      </mesh>
+      {[-0.07, 0.07].map((z) => (
+        <mesh
+          key={z}
+          position={[-0.02, 0.14, z]}
+          rotation={[z > 0 ? 0.5 : -0.5, 0, 0]}
+          scale={[1.6, 0.25, 0.9]}
+        >
+          <sphereGeometry args={[0.09, 10, 8]} />
+          <meshStandardMaterial
+            color="#e8f0f2"
+            transparent
+            opacity={0.6}
+            roughness={0.4}
+          />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+function Worm() {
+  const segments: Array<[number, number, number, number]> = [
+    [-0.28, 0.05, 0.1, 0.09],
+    [-0.12, 0.09, 0.02, 0.1],
+    [0.05, 0.12, -0.06, 0.1],
+    [0.22, 0.2, 0, 0.09],
+  ];
+  return (
+    <group>
+      {segments.map(([x, y, z, r], index) => (
+        <mesh key={index} castShadow position={[x, y, z]}>
+          <sphereGeometry args={[r, 10, 8]} />
+          <meshStandardMaterial
+            color={index === 2 ? "#c47672" : "#d98a86"}
+            roughness={0.8}
+          />
+        </mesh>
+      ))}
+      {[-0.03, 0.03].map((z) => (
+        <mesh key={z} position={[0.28, 0.24, z]}>
+          <sphereGeometry args={[0.015, 6, 6]} />
+          <meshStandardMaterial color="#1b1a17" />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+function Squirrel() {
+  return (
+    <group rotation={[0, -0.5, 0]}>
+      <mesh castShadow position={[0, 0.28, 0]} scale={[1, 1.15, 1.1]}>
+        <sphereGeometry args={[0.2, 12, 10]} />
+        <meshStandardMaterial color="#a5552f" roughness={0.92} />
+      </mesh>
+      <mesh castShadow position={[0, 0.55, 0.12]}>
+        <sphereGeometry args={[0.14, 12, 10]} />
+        <meshStandardMaterial color="#b16238" roughness={0.92} />
+      </mesh>
+      {[-0.07, 0.07].map((x) => (
+        <mesh key={x} castShadow position={[x, 0.7, 0.08]}>
+          <coneGeometry args={[0.04, 0.12, 6]} />
+          <meshStandardMaterial color="#8f4826" roughness={0.9} />
+        </mesh>
+      ))}
+      {[-0.05, 0.05].map((x) => (
+        <mesh key={x} position={[x, 0.58, 0.24]}>
+          <sphereGeometry args={[0.022, 8, 6]} />
+          <meshStandardMaterial color="#1b1a17" />
+        </mesh>
+      ))}
+      <mesh castShadow position={[0, 0.18, 0.14]} scale={[0.8, 0.9, 0.7]}>
+        <sphereGeometry args={[0.13, 10, 8]} />
+        <meshStandardMaterial color="#e8cdb2" roughness={0.85} />
+      </mesh>
+      <mesh castShadow position={[0, 0.45, -0.26]} scale={[0.7, 1.6, 0.7]}>
+        <sphereGeometry args={[0.18, 12, 10]} />
+        <meshStandardMaterial color="#c06b3c" roughness={0.95} />
+      </mesh>
+      <mesh castShadow position={[0, 0.78, -0.3]} scale={[0.6, 1, 0.6]}>
+        <sphereGeometry args={[0.15, 12, 10]} />
+        <meshStandardMaterial color="#cd7a48" roughness={0.95} />
+      </mesh>
+    </group>
+  );
+}
+
+function Blackbird() {
+  return (
+    <group rotation={[0, 0.9, 0]}>
+      <mesh castShadow position={[0, 0.18, 0]} scale={[1, 0.9, 1.35]}>
+        <sphereGeometry args={[0.17, 12, 10]} />
+        <meshStandardMaterial color="#25211f" roughness={0.9} />
+      </mesh>
+      <mesh castShadow position={[0, 0.34, 0.16]}>
+        <sphereGeometry args={[0.11, 12, 10]} />
+        <meshStandardMaterial color="#2c2725" roughness={0.9} />
+      </mesh>
+      <mesh position={[0, 0.33, 0.29]} rotation={[Math.PI / 2, 0, 0]}>
+        <coneGeometry args={[0.035, 0.14, 6]} />
+        <meshStandardMaterial color="#e8a83c" />
+      </mesh>
+      {[-0.055, 0.055].map((x) => (
+        <group key={x} position={[x, 0.38, 0.23]}>
+          <mesh>
+            <sphereGeometry args={[0.028, 8, 6]} />
+            <meshStandardMaterial color="#e8a83c" />
+          </mesh>
+          <mesh position={[0, 0, 0.015]}>
+            <sphereGeometry args={[0.018, 8, 6]} />
+            <meshStandardMaterial color="#141210" />
+          </mesh>
+        </group>
+      ))}
+      <mesh castShadow position={[0, 0.2, -0.26]} rotation={[0.6, 0, 0]} scale={[0.6, 0.2, 1]}>
+        <sphereGeometry args={[0.14, 10, 8]} />
+        <meshStandardMaterial color="#1c1917" roughness={0.95} />
       </mesh>
     </group>
   );
@@ -186,6 +361,10 @@ export function GardenScene() {
   const getSelectedItem = useGameStore((state) => state.getSelectedItem);
   const gateOpen = useGameStore((state) => state.flags.gate_open);
   const showToast = useGameStore((state) => state.showToast);
+  const openTopics = useGameStore((state) => state.openTopics);
+  const openTopicsAfterDialogue = useGameStore(
+    (state) => state.openTopicsAfterDialogue,
+  );
 
   const pickUp = (
     item: ItemId,
@@ -268,6 +447,51 @@ export function GardenScene() {
     startDialogue("need_item");
   };
 
+  const onMouse = () => {
+    if (!hasFlag("met_mouse")) {
+      setFlag("met_mouse");
+      openTopicsAfterDialogue("mouse_topics", "mouse_intro");
+      return;
+    }
+    openTopics("mouse_topics");
+  };
+
+  const onBee = () => {
+    if (!hasFlag("met_bee")) {
+      setFlag("met_bee");
+      openTopicsAfterDialogue("bee_topics", "bee_intro");
+      return;
+    }
+    openTopics("bee_topics");
+  };
+
+  const onWorm = () => {
+    if (!hasFlag("met_worm")) {
+      setFlag("met_worm");
+      openTopicsAfterDialogue("worm_topics", "worm_intro");
+      return;
+    }
+    openTopics("worm_topics");
+  };
+
+  const onSquirrel = () => {
+    if (!hasFlag("met_squirrel")) {
+      setFlag("met_squirrel");
+      openTopicsAfterDialogue("squirrel_topics", "squirrel_intro");
+      return;
+    }
+    openTopics("squirrel_topics");
+  };
+
+  const onBlackbird = () => {
+    if (!hasFlag("met_blackbird")) {
+      setFlag("met_blackbird");
+      openTopicsAfterDialogue("blackbird_topics", "blackbird_intro");
+      return;
+    }
+    openTopics("blackbird_topics");
+  };
+
   const crumbsGone =
     hasItem("crumbs") || hasItem("shovel") || hasFlag("dug_near_gate") || gateOpen;
 
@@ -284,6 +508,7 @@ export function GardenScene() {
         position={[-2.8, 0, 6.2]}
         radius={1.7}
         onInteract={onHedgehog}
+        onLook={() => startDialogue("look_hedgehog")}
       >
         <Hedgehog />
       </Interactable>
@@ -293,6 +518,7 @@ export function GardenScene() {
         position={[-6.8, 0, 4.2]}
         radius={1.6}
         onInteract={onFlowerPot}
+        onLook={() => startDialogue("look_flowerpot")}
       >
         <FlowerPot />
       </Interactable>
@@ -313,6 +539,7 @@ export function GardenScene() {
         position={[7.2, 0, -1.6]}
         radius={1.7}
         onInteract={onSparrow}
+        onLook={() => startDialogue("look_sparrow")}
       >
         <Sparrow />
       </Interactable>
@@ -322,6 +549,7 @@ export function GardenScene() {
         position={[0, 0, -10.4]}
         radius={2.1}
         onInteract={onGate}
+        onLook={() => startDialogue("look_gate")}
       >
         <mesh position={[0, 0.9, 0.15]}>
           <boxGeometry args={[3.3, 2, 0.5]} />
@@ -334,6 +562,7 @@ export function GardenScene() {
         position={[1.35, 0, -9.55]}
         radius={1.5}
         onInteract={onDigSpot}
+        onLook={() => startDialogue("look_digspot")}
         disabled={gateOpen}
       >
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.03, 0]}>
@@ -358,6 +587,7 @@ export function GardenScene() {
             getSelectedItem() === "smooth_stone" ? "frog_splash" : "frog_idle",
           )
         }
+        onLook={() => startDialogue("look_frog")}
       >
         <Frog />
       </Interactable>
@@ -370,6 +600,7 @@ export function GardenScene() {
             getSelectedItem() === "smooth_stone" ? "pond_splash" : "pond_idle",
           )
         }
+        onLook={() => startDialogue("look_pond")}
       >
         <mesh position={[0, 0.04, 0]} rotation={[-Math.PI / 2, 0, 0]} scale={[2.25, 1.45, 1]}>
           <circleGeometry args={[1, 24]} />
@@ -384,6 +615,7 @@ export function GardenScene() {
         onInteract={() =>
           startDialogue(getSelectedItem() === "red_leaf" ? "snail_leaf" : "snail_idle")
         }
+        onLook={() => startDialogue("look_snail")}
       >
         <Snail />
       </Interactable>
@@ -395,6 +627,7 @@ export function GardenScene() {
         onInteract={() =>
           startDialogue(getSelectedItem() === "bottle_cap" ? "gnome_cap" : "gnome_idle")
         }
+        onLook={() => startDialogue("look_gnome")}
       >
         <GardenGnome />
       </Interactable>
@@ -408,6 +641,7 @@ export function GardenScene() {
             getSelectedItem() === "key_flowerpot" ? "shed_key" : "shed_locked",
           )
         }
+        onLook={() => startDialogue("look_shed")}
       >
         <GardenShed />
       </Interactable>
@@ -417,6 +651,7 @@ export function GardenScene() {
         position={[3.7, 0, 4.1]}
         radius={1.8}
         onInteract={() => startDialogue("bench")}
+        onLook={() => startDialogue("look_bench")}
       >
         <Bench />
       </Interactable>
@@ -426,6 +661,7 @@ export function GardenScene() {
         position={[-3.8, 0, 0.5]}
         radius={1.6}
         onInteract={() => startDialogue("birdbath")}
+        onLook={() => startDialogue("look_birdbath")}
       >
         <BirdBath />
       </Interactable>
@@ -435,6 +671,7 @@ export function GardenScene() {
         position={[9.5, 0, 7.6]}
         radius={1.65}
         onInteract={() => startDialogue("compost")}
+        onLook={() => startDialogue("look_compost")}
       >
         <CompostPile />
       </Interactable>
@@ -444,6 +681,7 @@ export function GardenScene() {
         position={[-8.9, 0, 6.3]}
         radius={1.55}
         onInteract={() => startDialogue("watering_can")}
+        onLook={() => startDialogue("look_wateringcan")}
       >
         <WateringCan />
       </Interactable>
@@ -453,8 +691,89 @@ export function GardenScene() {
         position={[5.7, 0, -7.1]}
         radius={1.8}
         onInteract={() => startDialogue("wheelbarrow")}
+        onLook={() => startDialogue("look_wheelbarrow")}
       >
         <Wheelbarrow />
+      </Interactable>
+
+      <Interactable
+        id="meadow"
+        position={[-14.5, 0, 4.5]}
+        radius={2.4}
+        onInteract={() => startDialogue("meadow_idle")}
+        onLook={() => startDialogue("look_meadow")}
+      >
+        <Wildblumenwiese />
+      </Interactable>
+
+      <Interactable
+        id="beet"
+        position={[14, 0, 7]}
+        radius={2.6}
+        onInteract={() => startDialogue("beet_idle")}
+        onLook={() => startDialogue("look_beet")}
+      >
+        <Gemuesebeet />
+      </Interactable>
+
+      <Interactable
+        id="oak"
+        position={[2.5, 0, 16]}
+        radius={2.6}
+        onInteract={() => startDialogue("oak_idle")}
+        onLook={() => startDialogue("look_oak")}
+      >
+        <AlteEiche />
+      </Interactable>
+
+      <Interactable
+        id="mouse"
+        position={[-15.2, 0, 2.6]}
+        radius={1.5}
+        onInteract={onMouse}
+        onLook={() => startDialogue("look_mouse")}
+      >
+        <Mouse />
+      </Interactable>
+
+      <Interactable
+        id="bee"
+        position={[-13.4, 0, 6.8]}
+        radius={1.6}
+        onInteract={onBee}
+        onLook={() => startDialogue("look_bee")}
+      >
+        <Bee />
+      </Interactable>
+
+      <Interactable
+        id="worm"
+        position={[13.6, 0, 8.6]}
+        radius={1.5}
+        onInteract={onWorm}
+        onLook={() => startDialogue("look_worm")}
+      >
+        <Worm />
+      </Interactable>
+
+      <Interactable
+        id="squirrel"
+        position={[2.8, 0, 14.6]}
+        radius={1.7}
+        onInteract={onSquirrel}
+        onLook={() => startDialogue("look_squirrel")}
+      >
+        <Squirrel />
+      </Interactable>
+
+      <Interactable
+        id="blackbird"
+        position={[15.8, 0, 3.4]}
+        radius={1.6}
+        onInteract={onBlackbird}
+        onLook={() => startDialogue("look_blackbird")}
+      >
+        <Blackbird />
       </Interactable>
 
       {!hasItem("smooth_stone") && (

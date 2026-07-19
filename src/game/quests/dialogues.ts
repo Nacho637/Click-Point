@@ -1,6 +1,11 @@
 export type DialogueLine = {
   speaker: string;
-  text: string;
+  /** Normale gesprochene Zeile. Entfällt, wenn `symbols` gesetzt ist. */
+  text?: string;
+  /** Lautschrift: reine Piktogramm-Zeile, groß statt Text gerendert. */
+  symbols?: string;
+  /** Deutsche Übersetzung einer Symbolzeile, per „Übersetzen“-Knopf einblendbar. */
+  translation?: string;
 };
 
 export type DialogueId =
@@ -35,7 +40,55 @@ export type DialogueId =
   | "bench"
   | "compost"
   | "watering_can"
-  | "wheelbarrow";
+  | "wheelbarrow"
+  | "mouse_intro"
+  | "mouse_meadow"
+  | "mouse_neighbors"
+  | "mouse_secret"
+  | "mouse_bye"
+  | "bee_intro"
+  | "bee_work"
+  | "bee_weather"
+  | "bee_bye"
+  | "worm_intro"
+  | "worm_job"
+  | "worm_rain"
+  | "worm_bye"
+  | "squirrel_intro"
+  | "squirrel_oak"
+  | "squirrel_nuts"
+  | "squirrel_gate"
+  | "squirrel_bye"
+  | "blackbird_intro"
+  | "blackbird_song"
+  | "blackbird_beet"
+  | "blackbird_bye"
+  | "oak_idle"
+  | "meadow_idle"
+  | "beet_idle"
+  | "look_hedgehog"
+  | "look_sparrow"
+  | "look_frog"
+  | "look_snail"
+  | "look_gnome"
+  | "look_shed"
+  | "look_pond"
+  | "look_gate"
+  | "look_bench"
+  | "look_birdbath"
+  | "look_compost"
+  | "look_wateringcan"
+  | "look_wheelbarrow"
+  | "look_digspot"
+  | "look_flowerpot"
+  | "look_mouse"
+  | "look_bee"
+  | "look_worm"
+  | "look_squirrel"
+  | "look_blackbird"
+  | "look_oak"
+  | "look_meadow"
+  | "look_beet";
 
 export const DIALOGUES: Record<DialogueId, DialogueLine[]> = {
   hedgehog_intro: [
@@ -240,6 +293,365 @@ export const DIALOGUES: Record<DialogueId, DialogueLine[]> = {
     {
       speaker: "System",
       text: "Die Schubkarre quietscht eindrucksvoll, fährt aber keinen Zentimeter.",
+    },
+  ],
+
+  mouse_intro: [
+    {
+      speaker: "Maus Mila",
+      text: "Ein Meerschweinchen! Endlich mal jemand in meiner Gewichtsklasse. Ich bin Mila.",
+    },
+    {
+      speaker: "Maus Mila",
+      text: "Ich wohne hier in der Wildblumenwiese. Frag mich ruhig aus — ich kenne jeden Halm.",
+    },
+  ],
+  mouse_meadow: [
+    {
+      speaker: "Maus Mila",
+      text: "Die Wildblumenwiese ist mein Supermarkt: Samen unten, Nektar oben — und dazwischen wohne ich.",
+    },
+    {
+      speaker: "Maus Mila",
+      text: "Wo Menschen nicht mähen, wächst das beste Zeug. Merk dir das.",
+    },
+  ],
+  mouse_neighbors: [
+    {
+      speaker: "Maus Mila",
+      text: "Berta brummt den ganzen Tag über den Blüten. Versteht kein Wort Deutsch, aber jedes Herz.",
+    },
+    {
+      speaker: "Maus Mila",
+      text: "Und pass auf, wo du hintrittst: Willi wohnt praktisch überall unter uns.",
+    },
+  ],
+  mouse_secret: [
+    {
+      speaker: "Maus Mila",
+      text: "Psst. Unter der alten Eiche vergräbt Fritzi mehr Nüsse, als er je wiederfindet.",
+    },
+    {
+      speaker: "Maus Mila",
+      text: "Ich… helfe gelegentlich beim Wiederfinden. Sag ihm nichts.",
+    },
+  ],
+  mouse_bye: [
+    {
+      speaker: "Maus Mila",
+      text: "Bis bald! Und lass keine Krümel rumliegen — das lockt die Falschen an.",
+    },
+  ],
+
+  bee_intro: [
+    {
+      speaker: "Hummel Berta",
+      symbols: "🐝❓🐹",
+      translation: "Berta wundert sich: Was macht denn ein Meerschweinchen hier in der Wiese?",
+    },
+    {
+      speaker: "Hummel Berta",
+      symbols: "🐝💛🌼",
+      translation: "Aber willkommen ist hier jeder, der die Blumen in Ruhe lässt.",
+    },
+  ],
+  bee_work: [
+    {
+      speaker: "Hummel Berta",
+      symbols: "🐝 ➡️ 🌸 🌸 🌸 ➡️ 🏠🍯",
+      translation: "Ich fliege von Blüte zu Blüte und bringe den Nektar nach Hause.",
+    },
+    {
+      speaker: "Hummel Berta",
+      symbols: "🌸 ➡️ 🍓🍎🥕",
+      translation: "Ohne uns Bestäuber gäbe es kaum Obst und Gemüse im Garten.",
+    },
+  ],
+  bee_weather: [
+    {
+      speaker: "Hummel Berta",
+      symbols: "☀️ ✅ 🐝",
+      translation: "Bei Sonne fliege ich den ganzen Tag.",
+    },
+    {
+      speaker: "Hummel Berta",
+      symbols: "🌧️ ➡️ 🐝 💤",
+      translation: "Bei Regen halte ich ein Nickerchen unter einem großen Blatt.",
+    },
+  ],
+  bee_bye: [
+    {
+      speaker: "Hummel Berta",
+      symbols: "🐝 👋 💛",
+      translation: "Tschüss, und danke für den Plausch!",
+    },
+  ],
+
+  worm_intro: [
+    {
+      speaker: "Regenwurm Willi",
+      symbols: "🪱 ⬆️ 🌍 👀",
+      translation: "Ein Regenwurm lugt aus der Erde und mustert dich neugierig.",
+    },
+  ],
+  worm_job: [
+    {
+      speaker: "Regenwurm Willi",
+      symbols: "🍂 ➕ 🪱 ➡️ ✨🌱",
+      translation: "Ich verwandle alte Blätter in beste, lockere Erde.",
+    },
+    {
+      speaker: "Regenwurm Willi",
+      symbols: "✨🌱 ➡️ 🥕💪",
+      translation: "Davon werden die Möhren im Beet richtig stark.",
+    },
+  ],
+  worm_rain: [
+    {
+      speaker: "Regenwurm Willi",
+      symbols: "🌧️ ➡️ 🌍💦 ➡️ 🪱 ⬆️ 😮‍💨",
+      translation: "Wenn die Erde voll Wasser läuft, brauche ich oben frische Luft.",
+    },
+  ],
+  worm_bye: [
+    {
+      speaker: "Regenwurm Willi",
+      symbols: "🪱 👋 ⬇️",
+      translation: "Der Wurm winkt kurz und verschwindet wieder in der Erde.",
+    },
+  ],
+
+  squirrel_intro: [
+    {
+      speaker: "Eichhörnchen Fritzi",
+      text: "Huch! Ich dachte, du wärst eine besonders große Nuss. Ich bin Fritzi — willkommen an meiner Eiche.",
+    },
+  ],
+  squirrel_oak: [
+    {
+      speaker: "Eichhörnchen Fritzi",
+      text: "Die alte Eiche stand hier schon, als der Schuppen noch ein Bretterstapel war.",
+    },
+    {
+      speaker: "Eichhörnchen Fritzi",
+      text: "Beste Aussicht im ganzen Garten. Von ganz oben sieht man sogar über das Tor.",
+    },
+  ],
+  squirrel_nuts: [
+    {
+      speaker: "Eichhörnchen Fritzi",
+      text: "Vergraben. Überall. Frag nicht wo — das weiß ich selbst nicht mehr.",
+    },
+    {
+      speaker: "Eichhörnchen Fritzi",
+      text: "Deshalb wachsen hier übrigens so viele kleine Bäume. Gern geschehen, Garten.",
+    },
+  ],
+  squirrel_gate: [
+    {
+      speaker: "Eichhörnchen Fritzi",
+      text: "Vom obersten Ast sehe ich den Hof: ein Hund, eine Tür…",
+    },
+    {
+      speaker: "Eichhörnchen Fritzi",
+      text: "…und ein Napf, aus dem es verdächtig nach Erbsen-Chips duftet. Nur so als Info.",
+    },
+  ],
+  squirrel_bye: [
+    {
+      speaker: "Eichhörnchen Fritzi",
+      text: "Mach's gut! Und falls du eine Haselnuss findest: Die gehört vermutlich mir.",
+    },
+  ],
+
+  blackbird_intro: [
+    {
+      speaker: "Amsel Toni",
+      text: "Zwitscher! Du bist neu auf dem Boden hier, oder? Ich bin Toni, ich singe hier abends die Charts.",
+    },
+  ],
+  blackbird_song: [
+    {
+      speaker: "Amsel Toni",
+      text: "Wer zuerst singt, dem gehört die Antenne. So sind die Regeln — ich habe sie nicht gemacht.",
+    },
+    {
+      speaker: "Amsel Toni",
+      text: "Morgens um fünf klingt mein Solo am besten. Frag die Nachbarn. Oder besser nicht.",
+    },
+  ],
+  blackbird_beet: [
+    {
+      speaker: "Amsel Toni",
+      text: "Das Beet ist Teamarbeit: Der Mensch gießt, Willi lockert die Erde, ich hole die Schnecken raus.",
+    },
+    {
+      speaker: "Amsel Toni",
+      text: "Nur Suse hat Immunität. Ehrensache unter Nachbarn.",
+    },
+  ],
+  blackbird_bye: [
+    {
+      speaker: "Amsel Toni",
+      text: "Zwitscher! Grüß den Igel — er schuldet mir noch einen Wurm. Nichts für ungut, Willi.",
+    },
+  ],
+
+  oak_idle: [
+    {
+      speaker: "System",
+      text: "Die alte Eiche rauscht leise. In der Rinde stecken erstaunlich viele halb vergessene Nüsse.",
+    },
+  ],
+  meadow_idle: [
+    {
+      speaker: "System",
+      text: "Die Wildblumenwiese summt und duftet. Irgendwo raschelt es freundlich.",
+    },
+  ],
+  beet_idle: [
+    {
+      speaker: "System",
+      text: "Ordentliche Reihen aus Salat und Möhrengrün. Die Erde ist frisch gelockert — Willis Werk.",
+    },
+  ],
+
+  look_hedgehog: [
+    {
+      speaker: "Meeri",
+      text: "Ein Igel. Im Grunde ein Meerschweinchen mit Verteidigungsbudget.",
+    },
+  ],
+  look_sparrow: [
+    {
+      speaker: "Meeri",
+      text: "Pip sitzt auf seinem Pfosten wie auf einem Thron. Für einen Spatzen sehr viel Attitüde.",
+    },
+  ],
+  look_frog: [
+    {
+      speaker: "Meeri",
+      text: "Fridolin sieht aus, als würde er gleich etwas Weises sagen. Oder eine Fliege essen. Eins von beidem.",
+    },
+  ],
+  look_snail: [
+    {
+      speaker: "Meeri",
+      text: "Suse trägt ihr Haus immer dabei. Praktisch — aber der Umzug dauert trotzdem ewig.",
+    },
+  ],
+  look_gnome: [
+    {
+      speaker: "Meeri",
+      text: "Er zwinkert nicht. Er blinzelt nicht. Respekt. Oder Keramik.",
+    },
+  ],
+  look_shed: [
+    {
+      speaker: "Meeri",
+      text: "Ein Schuppen voller Werkzeug, das keiner benutzt. Menschen sammeln seltsame Dinge.",
+    },
+  ],
+  look_pond: [
+    {
+      speaker: "Meeri",
+      text: "Wasser, so weit die Pfote reicht. Zum Trinken gut, zum Schwimmen bitte jemand anderes.",
+    },
+  ],
+  look_gate: [
+    {
+      speaker: "Meeri",
+      text: "Von hier riecht man die Erbsen-Chips fast. Fast ist das grausamste Wort der Welt.",
+    },
+  ],
+  look_bench: [
+    {
+      speaker: "Meeri",
+      text: "Eine Bank für Riesen. Unten drunter ist der beste Schattenplatz des Gartens — Insiderwissen.",
+    },
+  ],
+  look_birdbath: [
+    {
+      speaker: "Meeri",
+      text: "Ein Pool in Kopfhöhe. Vögel haben schon einen seltsamen Begriff von Barrierefreiheit.",
+    },
+  ],
+  look_compost: [
+    {
+      speaker: "Meeri",
+      text: "Riecht streng, aber Willi schwärmt davon wie von einem Fünf-Sterne-Buffet.",
+    },
+  ],
+  look_wateringcan: [
+    {
+      speaker: "Meeri",
+      text: "Fast so groß wie ich. Wenn es regnet, wäre das hier meine Notunterkunft erster Wahl.",
+    },
+  ],
+  look_wheelbarrow: [
+    {
+      speaker: "Meeri",
+      text: "Ein Fahrzeug mit nur einem Rad. Mutig. Würde ich trotzdem sofort mitfahren.",
+    },
+  ],
+  look_digspot: [
+    {
+      speaker: "Meeri",
+      text: "Auffällig lockere Erde. Hier hat jemand gebuddelt — oder wartet darauf, dass ich es tue.",
+    },
+  ],
+  look_flowerpot: [
+    {
+      speaker: "Meeri",
+      text: "Ein Blumentopf. Menschen verstecken Schlüssel darunter und wundern sich über Einbrüche.",
+    },
+  ],
+  look_mouse: [
+    {
+      speaker: "Meeri",
+      text: "Mila ist wie ich, nur in klein und mit Schwanz. Und deutlich besser informiert.",
+    },
+  ],
+  look_bee: [
+    {
+      speaker: "Meeri",
+      text: "Fliegt wie ein Wollknäuel mit Turbo. Physik ist ihr sichtlich egal.",
+    },
+  ],
+  look_worm: [
+    {
+      speaker: "Meeri",
+      text: "Kein Anfang, kein Ende, aber eine klare Meinung. Beeindruckend.",
+    },
+  ],
+  look_squirrel: [
+    {
+      speaker: "Meeri",
+      text: "Fritzis Schwanz ist größer als er selbst. Vermutlich ist da auch Stauraum drin.",
+    },
+  ],
+  look_blackbird: [
+    {
+      speaker: "Meeri",
+      text: "Schwarzer Frack, gelber Schnabel — Toni ist der einzige hier, der ständig im Abendanzug rumläuft.",
+    },
+  ],
+  look_oak: [
+    {
+      speaker: "Meeri",
+      text: "Ein Baum wie ein Hochhaus. Von oben sieht man angeblich die Erbsen-Chips. Ich glaube es ungeprüft.",
+    },
+  ],
+  look_meadow: [
+    {
+      speaker: "Meeri",
+      text: "Hohe Halme, bunte Punkte, überall Gesumm. Wie ein Wimmelbild zum Reinlaufen.",
+    },
+  ],
+  look_beet: [
+    {
+      speaker: "Meeri",
+      text: "Salat in Reih und Glied. Ich salutiere — und knabbere ausdrücklich nichts an. Noch.",
     },
   ],
 };
