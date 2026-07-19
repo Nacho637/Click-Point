@@ -24,7 +24,7 @@ export async function GET(request: Request) {
 
   const { data, error } = await supabase
     .from("saves")
-    .select("player_key, scene_id, inventory, flags, updated_at")
+    .select("player_key, scene_id, inventory, dropped_items, flags, updated_at")
     .eq("player_key", playerKey)
     .maybeSingle();
 
@@ -48,6 +48,7 @@ export async function PUT(request: Request) {
     player_key?: string;
     scene_id?: string;
     inventory?: unknown;
+    dropped_items?: unknown;
     flags?: unknown;
   };
 
@@ -66,6 +67,9 @@ export async function PUT(request: Request) {
   if (!Array.isArray(body.inventory)) {
     return badRequest("inventory must be an array");
   }
+  if (body.dropped_items !== undefined && !Array.isArray(body.dropped_items)) {
+    return badRequest("dropped_items must be an array");
+  }
   if (!body.flags || typeof body.flags !== "object") {
     return badRequest("flags must be an object");
   }
@@ -74,6 +78,7 @@ export async function PUT(request: Request) {
     player_key: body.player_key,
     scene_id: body.scene_id,
     inventory: body.inventory,
+    dropped_items: body.dropped_items ?? [],
     flags: body.flags,
     updated_at: new Date().toISOString(),
   };
@@ -81,7 +86,7 @@ export async function PUT(request: Request) {
   const { data, error } = await supabase
     .from("saves")
     .upsert(row, { onConflict: "player_key" })
-    .select("player_key, scene_id, inventory, flags, updated_at")
+    .select("player_key, scene_id, inventory, dropped_items, flags, updated_at")
     .single();
 
   if (error) {

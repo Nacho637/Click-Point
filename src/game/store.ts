@@ -25,10 +25,14 @@ import {
 
 export type InventorySlot = ItemId | null;
 
+/** Ein Gegenstand, der auf dem Boden liegt und wieder aufgehoben werden kann. */
+export type DroppedItem = { item: ItemId; position: [number, number, number] };
+
 type GameState = {
   sceneId: SceneId;
   flags: FlagMap;
   inventory: InventorySlot[];
+  droppedItems: DroppedItem[];
   selectedSlot: number | null;
   dialogue: DialogueLine[] | null;
   dialogueIndex: number;
@@ -60,14 +64,18 @@ type GameState = {
   clearToast: () => void;
   goToScene: (scene: SceneId) => void;
   dropSelected: () => void;
+  pickUpDropped: (item: ItemId) => void;
+  isDropped: (item: ItemId) => boolean;
   getSavePayload: () => {
     scene_id: SceneId;
     inventory: InventorySlot[];
+    dropped_items: DroppedItem[];
     flags: FlagMap;
   };
   loadSave: (data: {
     scene_id: SceneId;
     inventory: InventorySlot[];
+    dropped_items?: DroppedItem[];
     flags: Partial<FlagMap>;
   }) => void;
 };
@@ -80,6 +88,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   sceneId: "garden",
   flags: { ...INITIAL_FLAGS },
   inventory: emptyInventory(),
+  droppedItems: [],
   selectedSlot: null,
   dialogue: null,
   dialogueIndex: 0,
@@ -197,18 +206,49 @@ export const useGameStore = create<GameState>((set, get) => ({
   goToScene: (scene) => set({ sceneId: scene }),
 
   dropSelected: () => {
-    const { selectedSlot, inventory } = get();
+    const { selectedSlot, inventory, droppedItems, playerPosition } = get();
     if (selectedSlot === null || inventory[selectedSlot] === null) return;
     const item = inventory[selectedSlot];
+    if (!item) return;
     const next = [...inventory];
     next[selectedSlot] = null;
-    set({ inventory: next, selectedSlot: null });
-    if (item) get().showToast(`${ITEM_CATALOG[item].name} abgelegt`);
+    // Der Gegenstand wird nicht mehr endgültig entfernt, sondern fällt vor dem
+    // Spieler zu Boden. Mehrere abgelegte Dinge fächern sich leicht auf, damit
+    // sie sich nicht exakt überlagern und einzeln wieder aufgehoben werden können.
+    const angle = droppedItems.length * 1.1;
+    const spot: [number, number, number] = [
+      playerPosition[0] + Math.cos(angle) * 0.95,
+      0,
+      playerPosition[2] + Math.sin(angle) * 0.95,
+    ];
+    set({
+      inventory: next,
+      selectedSlot: null,
+      droppedItems: [...droppedItems, { item, position: spot }],
+    });
+    get().showToast(`${ITEM_CATALOG[item].name} liegt jetzt am Boden`);
   },
 
+  pickUpDropped: (item) => {
+    const { droppedItems } = get();
+    if (!droppedItems.some((d) => d.item === item)) return;
+    // Nur aus dem Boden entfernen, wenn wirklich Platz im Inventar war.
+    if (!get().addItem(item)) return;
+    set({
+      droppedItems: get().droppedItems.filter((d) => d.item !== item),
+    });
+  },
+
+  isDropped: (item) => get().droppedItems.some((d) => d.item === item),
+
   getSavePayload: () => {
-    const { sceneId, inventory, flags } = get();
-    return { scene_id: sceneId, inventory, flags };
+    const { sceneId, inventory, droppedItems, flags } = get();
+    return {
+      scene_id: sceneId,
+      inventory,
+      dropped_items: droppedItems,
+      flags,
+    };
   },
 
   loadSave: (data) =>
@@ -217,6 +257,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       inventory: data.inventory.length
         ? data.inventory
         : emptyInventory(),
+      droppedItems: data.dropped_items ?? [],
       flags: { ...INITIAL_FLAGS, ...data.flags },
     }),
 }));

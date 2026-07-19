@@ -2,7 +2,7 @@
 
 import { Interactable } from "@/game/entities/Interactable";
 import { Player } from "@/game/entities/Player";
-import type { ItemId } from "@/game/items/catalog";
+import { ITEM_CATALOG, type ItemId } from "@/game/items/catalog";
 import {
   AlteEiche,
   Bench,
@@ -302,6 +302,80 @@ function PickupModel({ item }: { item: "stone" | "leaf" | "cap" | "crumbs" }) {
   );
 }
 
+function KeyModel() {
+  return (
+    <group rotation={[Math.PI / 2, 0, 0.35]} position={[0, 0.06, 0]}>
+      <mesh castShadow position={[0, 0.13, 0]}>
+        <torusGeometry args={[0.1, 0.028, 8, 16]} />
+        <meshStandardMaterial color="#b8973f" metalness={0.5} roughness={0.5} />
+      </mesh>
+      <mesh castShadow position={[0, -0.08, 0]}>
+        <cylinderGeometry args={[0.024, 0.024, 0.34, 6]} />
+        <meshStandardMaterial color="#b8973f" metalness={0.5} roughness={0.5} />
+      </mesh>
+      <mesh castShadow position={[0.06, -0.21, 0]}>
+        <boxGeometry args={[0.1, 0.06, 0.035]} />
+        <meshStandardMaterial color="#b8973f" metalness={0.5} roughness={0.5} />
+      </mesh>
+    </group>
+  );
+}
+
+function ShovelModel() {
+  return (
+    <group rotation={[0, 0.4, -0.18]} position={[0, 0.05, 0]}>
+      <mesh castShadow position={[0, 0.08, -0.18]} rotation={[0.12, 0, 0]}>
+        <cylinderGeometry args={[0.024, 0.03, 0.5, 6]} />
+        <meshStandardMaterial color="#8a6b45" roughness={0.9} />
+      </mesh>
+      <mesh castShadow position={[0, 0.06, 0.2]}>
+        <boxGeometry args={[0.18, 0.04, 0.26]} />
+        <meshStandardMaterial color="#7d8a92" metalness={0.3} roughness={0.7} />
+      </mesh>
+    </group>
+  );
+}
+
+/** Neutrales Bündel für Gegenstände ohne eigenes Bodenmodell. */
+function GenericItemModel({ color }: { color: string }) {
+  return (
+    <mesh castShadow position={[0, 0.13, 0]} rotation={[0.3, 0.6, 0.1]}>
+      <boxGeometry args={[0.3, 0.24, 0.3]} />
+      <meshStandardMaterial color={color} roughness={0.85} />
+    </mesh>
+  );
+}
+
+/** Wählt für einen abgelegten Gegenstand das passende Bodenmodell. */
+function DroppedItemModel({ item }: { item: ItemId }) {
+  switch (item) {
+    case "smooth_stone":
+      return <PickupModel item="stone" />;
+    case "red_leaf":
+      return <PickupModel item="leaf" />;
+    case "bottle_cap":
+      return <PickupModel item="cap" />;
+    case "crumbs":
+      return <PickupModel item="crumbs" />;
+    case "key_flowerpot":
+      return <KeyModel />;
+    case "shovel":
+      return <ShovelModel />;
+    case "magnet":
+      return <GenericItemModel color="#a23b32" />;
+    case "tin_can":
+      return <GenericItemModel color="#9aa7ac" />;
+    case "note":
+      return <GenericItemModel color="#e6dcc0" />;
+    case "string":
+      return <GenericItemModel color="#cbb98f" />;
+    case "dog_biscuit":
+      return <GenericItemModel color="#c69a5b" />;
+    default:
+      return <GenericItemModel color="#c8a15a" />;
+  }
+}
+
 function WateringCan() {
   return (
     <group>
@@ -358,6 +432,8 @@ export function GardenScene() {
   const hasItem = useGameStore((state) => state.hasItem);
   const addItem = useGameStore((state) => state.addItem);
   const removeItem = useGameStore((state) => state.removeItem);
+  const droppedItems = useGameStore((state) => state.droppedItems);
+  const pickUpDropped = useGameStore((state) => state.pickUpDropped);
   const getSelectedItem = useGameStore((state) => state.getSelectedItem);
   const gateOpen = useGameStore((state) => state.flags.gate_open);
   const showToast = useGameStore((state) => state.showToast);
@@ -492,8 +568,15 @@ export function GardenScene() {
     openTopics("blackbird_topics");
   };
 
+  // Liegt der Gegenstand gerade als abgelegtes Objekt am Boden?
+  const isDropped = (item: ItemId) => droppedItems.some((d) => d.item === item);
+
   const crumbsGone =
-    hasItem("crumbs") || hasItem("shovel") || hasFlag("dug_near_gate") || gateOpen;
+    hasItem("crumbs") ||
+    isDropped("crumbs") ||
+    hasItem("shovel") ||
+    hasFlag("dug_near_gate") ||
+    gateOpen;
 
   return (
     <group>
@@ -776,7 +859,7 @@ export function GardenScene() {
         <Blackbird />
       </Interactable>
 
-      {!hasItem("smooth_stone") && (
+      {!hasItem("smooth_stone") && !isDropped("smooth_stone") && (
         <Interactable
           id="smooth-stone"
           position={[-9.5, 0, 0.2]}
@@ -787,7 +870,7 @@ export function GardenScene() {
         </Interactable>
       )}
 
-      {!hasItem("red_leaf") && (
+      {!hasItem("red_leaf") && !isDropped("red_leaf") && (
         <Interactable
           id="red-leaf"
           position={[-3.4, 0, 9.7]}
@@ -798,7 +881,7 @@ export function GardenScene() {
         </Interactable>
       )}
 
-      {!hasItem("bottle_cap") && (
+      {!hasItem("bottle_cap") && !isDropped("bottle_cap") && (
         <Interactable
           id="bottle-cap"
           position={[8.7, 0, 0.7]}
@@ -808,6 +891,20 @@ export function GardenScene() {
           <PickupModel item="cap" />
         </Interactable>
       )}
+
+      {/* Abgelegte Gegenstände liegen am Boden und können wieder aufgehoben werden. */}
+      {droppedItems.map((dropped) => (
+        <Interactable
+          key={`dropped-${dropped.item}`}
+          id={`dropped-${dropped.item}`}
+          position={dropped.position}
+          radius={1.3}
+          onInteract={() => pickUpDropped(dropped.item)}
+          onLook={() => showToast(ITEM_CATALOG[dropped.item].description)}
+        >
+          <DroppedItemModel item={dropped.item} />
+        </Interactable>
+      ))}
     </group>
   );
 }

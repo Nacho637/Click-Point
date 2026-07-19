@@ -8,6 +8,7 @@ import { getOrCreatePlayerKey } from "@/lib/playerKey";
 export function useSaveSync(enabled = true) {
   const timer = useRef<number | null>(null);
   const inventory = useGameStore((s) => s.inventory);
+  const droppedItems = useGameStore((s) => s.droppedItems);
   const flags = useGameStore((s) => s.flags);
   const sceneId = useGameStore((s) => s.sceneId);
 
@@ -33,5 +34,5 @@ export function useSaveSync(enabled = true) {
     return () => {
       if (timer.current) window.clearTimeout(timer.current);
     };
-  }, [enabled, inventory, flags, sceneId]);
+  }, [enabled, inventory, droppedItems, flags, sceneId]);
 }
