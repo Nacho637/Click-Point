@@ -94,29 +94,36 @@ export const DIALOGUES: Record<DialogueId, DialogueLine[]> = {
   hedgehog_intro: [
     {
       speaker: "Igel Ignatz",
-      text: "Psst… Meerschweinchen. Du willst zu den Erbsen-Chips, oder?",
+      symbols: "🦔 🤫 🐹❓ ➡️ 🟢🍟",
+      translation: "Psst… Meerschweinchen. Du willst zu den Erbsen-Chips, oder?",
     },
     {
       speaker: "Igel Ignatz",
-      text: "Das Gartentor ist zu. Unter dem Blumentopf liegt oft ein Schlüssel. Oder du buddelst… Spatzen wissen sowas.",
+      symbols: "🚪🔒 ➡️ 🪴⬇️🔑 ➡️ 🐾⛏️❓🐦",
+      translation:
+        "Das Gartentor ist zu. Unter dem Blumentopf liegt oft ein Schlüssel. Oder du buddelst… Spatzen wissen sowas.",
     },
   ],
   hedgehog_hint: [
     {
       speaker: "Igel Ignatz",
-      text: "Manche Töpfe verbergen mehr als Erde. Und Pip der Spatz wird bei einem guten Tausch erstaunlich gesprächig.",
+      symbols: "🪴❓✨ ➡️ 🐦🤝🍞 ➡️ 🗣️",
+      translation:
+        "Manche Töpfe verbergen mehr als Erde. Und Pip der Spatz wird bei einem guten Tausch erstaunlich gesprächig.",
     },
   ],
   sparrow_hungry: [
     {
       speaker: "Spatz Pip",
-      text: "Piep! Ich tausch meinen Mini-Spaten… aber nur gegen leckere Krümel!",
+      symbols: "🐦 ⛏️ 🔁 🍞❓",
+      translation: "Piep! Ich tausch meinen Mini-Spaten… aber nur gegen leckere Krümel!",
     },
   ],
   sparrow_thanks: [
     {
       speaker: "Spatz Pip",
-      text: "Mmmh! Hier, nimm den Spaten. Am Tor ist die Erde ganz weich.",
+      symbols: "🍞😋 ➡️ ⛏️🎁 ➡️ 🚪🌍💫",
+      translation: "Mmmh! Hier, nimm den Spaten. Am Tor ist die Erde ganz weich.",
     },
   ],
   gate_locked: [
@@ -212,25 +219,30 @@ export const DIALOGUES: Record<DialogueId, DialogueLine[]> = {
   frog_idle: [
     {
       speaker: "Frosch Fridolin",
-      text: "Quak. Ich kenne mich mit Fliegen aus — und mit richtig guten Platschern.",
+      symbols: "🐸 🪰✅ 💦✅",
+      translation: "Quak. Ich kenne mich mit Fliegen aus — und mit richtig guten Platschern.",
     },
   ],
   frog_splash: [
     {
       speaker: "Frosch Fridolin",
-      text: "Eine solide Acht von zehn für den Platscher. Technik, Höhe, Nachhall — respektabel!",
+      symbols: "💦 8️⃣/🔟 👍",
+      translation:
+        "Eine solide Acht von zehn für den Platscher. Technik, Höhe, Nachhall — respektabel!",
     },
   ],
   snail_idle: [
     {
       speaker: "Schnecke Suse",
-      text: "Ich bin unterwegs zum Salatbeet. Frag mich morgen noch mal, ob ich angekommen bin.",
+      symbols: "🐌 ➡️ 🥬 ⏳❓",
+      translation: "Ich bin unterwegs zum Salatbeet. Frag mich morgen noch mal, ob ich angekommen bin.",
     },
   ],
   snail_leaf: [
     {
       speaker: "Schnecke Suse",
-      text: "Oh, ein Blatt! Nicht mein Lieblingsgericht, aber perfekte Reiseverpflegung. Danke!",
+      symbols: "🍃❗ 🍽️❌💛 ➡️ 🎒✅ 🙏",
+      translation: "Oh, ein Blatt! Nicht mein Lieblingsgericht, aber perfekte Reiseverpflegung. Danke!",
     },
     {
       speaker: "System",
@@ -299,47 +311,57 @@ export const DIALOGUES: Record<DialogueId, DialogueLine[]> = {
   mouse_intro: [
     {
       speaker: "Maus Mila",
-      text: "Ein Meerschweinchen! Endlich mal jemand in meiner Gewichtsklasse. Ich bin Mila.",
+      symbols: "🐹❗ ⚖️🙂",
+      translation: "Ein Meerschweinchen! Endlich mal jemand in meiner Gewichtsklasse. Ich bin Mila.",
     },
     {
       speaker: "Maus Mila",
-      text: "Ich wohne hier in der Wildblumenwiese. Frag mich ruhig aus — ich kenne jeden Halm.",
+      symbols: "🐭🏠🌼🌾 ❓✅",
+      translation: "Ich wohne hier in der Wildblumenwiese. Frag mich ruhig aus — ich kenne jeden Halm.",
     },
   ],
   mouse_meadow: [
     {
       speaker: "Maus Mila",
-      text: "Die Wildblumenwiese ist mein Supermarkt: Samen unten, Nektar oben — und dazwischen wohne ich.",
+      symbols: "🌼🌾 = 🛒 ⬇️🌱 ⬆️🍯 🐭↕️",
+      translation:
+        "Die Wildblumenwiese ist mein Supermarkt: Samen unten, Nektar oben — und dazwischen wohne ich.",
     },
     {
       speaker: "Maus Mila",
-      text: "Wo Menschen nicht mähen, wächst das beste Zeug. Merk dir das.",
+      symbols: "🧑🚫✂️🌾 ➡️ 🌟🌱",
+      translation: "Wo Menschen nicht mähen, wächst das beste Zeug. Merk dir das.",
     },
   ],
   mouse_neighbors: [
     {
       speaker: "Maus Mila",
-      text: "Berta brummt den ganzen Tag über den Blüten. Versteht kein Wort Deutsch, aber jedes Herz.",
+      symbols: "🐝🎵🌸 ☀️➡️🌙 🗣️❌ 💛✅",
+      translation: "Berta brummt den ganzen Tag über den Blüten. Versteht kein Wort Deutsch, aber jedes Herz.",
     },
     {
       speaker: "Maus Mila",
-      text: "Und pass auf, wo du hintrittst: Willi wohnt praktisch überall unter uns.",
+      symbols: "👀🐾⚠️ ➡️ 🪱🌍⬇️ 📍❓",
+      translation: "Und pass auf, wo du hintrittst: Willi wohnt praktisch überall unter uns.",
     },
   ],
   mouse_secret: [
     {
       speaker: "Maus Mila",
-      text: "Psst. Unter der alten Eiche vergräbt Fritzi mehr Nüsse, als er je wiederfindet.",
+      symbols: "🤫 🌳⬇️ 🐿️🌰⬇️ ➡️ 📍❓",
+      translation: "Psst. Unter der alten Eiche vergräbt Fritzi mehr Nüsse, als er je wiederfindet.",
     },
     {
       speaker: "Maus Mila",
-      text: "Ich… helfe gelegentlich beim Wiederfinden. Sag ihm nichts.",
+      symbols: "🐭🔍🌰 🤝 🤐",
+      translation: "Ich… helfe gelegentlich beim Wiederfinden. Sag ihm nichts.",
     },
   ],
   mouse_bye: [
     {
       speaker: "Maus Mila",
-      text: "Bis bald! Und lass keine Krümel rumliegen — das lockt die Falschen an.",
+      symbols: "👋🐭 ➡️ 🍞🚫 ⚠️😈",
+      translation: "Bis bald! Und lass keine Krümel rumliegen — das lockt die Falschen an.",
     },
   ],
 
@@ -424,76 +446,94 @@ export const DIALOGUES: Record<DialogueId, DialogueLine[]> = {
   squirrel_intro: [
     {
       speaker: "Eichhörnchen Fritzi",
-      text: "Huch! Ich dachte, du wärst eine besonders große Nuss. Ich bin Fritzi — willkommen an meiner Eiche.",
+      symbols: "😲 🐹=🌰❓ 🐿️👋🌳",
+      translation:
+        "Huch! Ich dachte, du wärst eine besonders große Nuss. Ich bin Fritzi — willkommen an meiner Eiche.",
     },
   ],
   squirrel_oak: [
     {
       speaker: "Eichhörnchen Fritzi",
-      text: "Die alte Eiche stand hier schon, als der Schuppen noch ein Bretterstapel war.",
+      symbols: "🌳⏳ ➡️ 🏚️👶",
+      translation: "Die alte Eiche stand hier schon, als der Schuppen noch ein Bretterstapel war.",
     },
     {
       speaker: "Eichhörnchen Fritzi",
-      text: "Beste Aussicht im ganzen Garten. Von ganz oben sieht man sogar über das Tor.",
+      symbols: "🌳⬆️👀🏆 ➡️ 👀🚪",
+      translation: "Beste Aussicht im ganzen Garten. Von ganz oben sieht man sogar über das Tor.",
     },
   ],
   squirrel_nuts: [
     {
       speaker: "Eichhörnchen Fritzi",
-      text: "Vergraben. Überall. Frag nicht wo — das weiß ich selbst nicht mehr.",
+      symbols: "🌰⬇️🌍 📍❓ 🤷",
+      translation: "Vergraben. Überall. Frag nicht wo — das weiß ich selbst nicht mehr.",
     },
     {
       speaker: "Eichhörnchen Fritzi",
-      text: "Deshalb wachsen hier übrigens so viele kleine Bäume. Gern geschehen, Garten.",
+      symbols: "🌰 ➡️ 🌱🌳🌳 🙏🌍",
+      translation: "Deshalb wachsen hier übrigens so viele kleine Bäume. Gern geschehen, Garten.",
     },
   ],
   squirrel_gate: [
     {
       speaker: "Eichhörnchen Fritzi",
-      text: "Vom obersten Ast sehe ich den Hof: ein Hund, eine Tür…",
+      symbols: "🌳⬆️👀 ➡️ 🐕🚪",
+      translation: "Vom obersten Ast sehe ich den Hof: ein Hund, eine Tür…",
     },
     {
       speaker: "Eichhörnchen Fritzi",
-      text: "…und ein Napf, aus dem es verdächtig nach Erbsen-Chips duftet. Nur so als Info.",
+      symbols: "🥣👃 🟢🍟❓ ℹ️",
+      translation:
+        "…und ein Napf, aus dem es verdächtig nach Erbsen-Chips duftet. Nur so als Info.",
     },
   ],
   squirrel_bye: [
     {
       speaker: "Eichhörnchen Fritzi",
-      text: "Mach's gut! Und falls du eine Haselnuss findest: Die gehört vermutlich mir.",
+      symbols: "👋🐿️ ➡️ 🌰🔍 ➡️ 🐿️❓",
+      translation: "Mach's gut! Und falls du eine Haselnuss findest: Die gehört vermutlich mir.",
     },
   ],
 
   blackbird_intro: [
     {
       speaker: "Amsel Toni",
-      text: "Zwitscher! Du bist neu auf dem Boden hier, oder? Ich bin Toni, ich singe hier abends die Charts.",
+      symbols: "🐦🎵❗ 🆕🐾❓ 🌙🎤🏆",
+      translation:
+        "Zwitscher! Du bist neu auf dem Boden hier, oder? Ich bin Toni, ich singe hier abends die Charts.",
     },
   ],
   blackbird_song: [
     {
       speaker: "Amsel Toni",
-      text: "Wer zuerst singt, dem gehört die Antenne. So sind die Regeln — ich habe sie nicht gemacht.",
+      symbols: "🥇🎤 ➡️ 📡 📜🤷",
+      translation: "Wer zuerst singt, dem gehört die Antenne. So sind die Regeln — ich habe sie nicht gemacht.",
     },
     {
       speaker: "Amsel Toni",
-      text: "Morgens um fünf klingt mein Solo am besten. Frag die Nachbarn. Oder besser nicht.",
+      symbols: "🌅5️⃣ ➡️ 🎤✨ 🏘️❓🙊",
+      translation: "Morgens um fünf klingt mein Solo am besten. Frag die Nachbarn. Oder besser nicht.",
     },
   ],
   blackbird_beet: [
     {
       speaker: "Amsel Toni",
-      text: "Das Beet ist Teamarbeit: Der Mensch gießt, Willi lockert die Erde, ich hole die Schnecken raus.",
+      symbols: "🥬🤝 🧑💧 🪱🌍 🐦🐌⬆️",
+      translation:
+        "Das Beet ist Teamarbeit: Der Mensch gießt, Willi lockert die Erde, ich hole die Schnecken raus.",
     },
     {
       speaker: "Amsel Toni",
-      text: "Nur Suse hat Immunität. Ehrensache unter Nachbarn.",
+      symbols: "🐌✅🛡️ 🤝🏘️",
+      translation: "Nur Suse hat Immunität. Ehrensache unter Nachbarn.",
     },
   ],
   blackbird_bye: [
     {
       speaker: "Amsel Toni",
-      text: "Zwitscher! Grüß den Igel — er schuldet mir noch einen Wurm. Nichts für ungut, Willi.",
+      symbols: "👋🐦 ➡️ 🦔 🪱💰❓ 😅",
+      translation: "Zwitscher! Grüß den Igel — er schuldet mir noch einen Wurm. Nichts für ungut, Willi.",
     },
   ],
 
