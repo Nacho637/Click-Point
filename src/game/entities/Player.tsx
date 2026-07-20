@@ -12,7 +12,6 @@ const BOUNDS = { minX: -17.5, maxX: 17.5, minZ: -10.8, maxZ: 17 };
 const START_POSITION: [number, number, number] = [0, 0.35, 8];
 
 const FUR = "#d8b48a";
-const FUR_SHEEN = "#f6e3c4";
 const FUR_WARM = "#c99a6b";
 const FUR_DARK = "#a8784f";
 const BELLY = "#f3e2c8";
@@ -103,47 +102,23 @@ export function Player() {
         {/* Plush oval body */}
         <mesh castShadow position={[0, 0.02, -0.02]} scale={[1.15, 0.92, 1.35]}>
           <sphereGeometry args={[0.36, 22, 18]} />
-          <meshPhysicalMaterial
-            color={FUR}
-            roughness={0.88}
-            sheen={1}
-            sheenRoughness={0.55}
-            sheenColor={FUR_SHEEN}
-          />
+          <meshStandardMaterial color={FUR} roughness={0.88} />
         </mesh>
         {/* Warm saddle stripe */}
         <mesh castShadow position={[0, 0.16, -0.06]} scale={[0.95, 0.55, 1.1]}>
           <sphereGeometry args={[0.28, 16, 12]} />
-          <meshPhysicalMaterial
-            color={FUR_WARM}
-            roughness={0.9}
-            sheen={1}
-            sheenRoughness={0.55}
-            sheenColor={FUR_SHEEN}
-          />
+          <meshStandardMaterial color={FUR_WARM} roughness={0.9} />
         </mesh>
         {/* Cream belly */}
         <mesh castShadow position={[0, -0.1, 0.06]} scale={[0.95, 0.7, 1.05]}>
           <sphereGeometry args={[0.26, 16, 12]} />
-          <meshPhysicalMaterial
-            color={BELLY}
-            roughness={0.82}
-            sheen={1}
-            sheenRoughness={0.5}
-            sheenColor={FUR_SHEEN}
-          />
+          <meshStandardMaterial color={BELLY} roughness={0.82} />
         </mesh>
 
         {/* Rounded head */}
         <mesh castShadow position={[0, 0.18, 0.34]} scale={[1.05, 0.95, 1]}>
           <sphereGeometry args={[0.24, 20, 16]} />
-          <meshPhysicalMaterial
-            color={FUR}
-            roughness={0.85}
-            sheen={1}
-            sheenRoughness={0.55}
-            sheenColor={FUR_SHEEN}
-          />
+          <meshStandardMaterial color={FUR} roughness={0.85} />
         </mesh>
         {/* Soft cheeks */}
         <mesh castShadow position={[-0.16, 0.12, 0.42]} scale={[0.7, 0.65, 0.7]}>
@@ -186,19 +161,11 @@ export function Player() {
         <group position={[-0.09, 0.22, 0.52]}>
           <mesh>
             <sphereGeometry args={[0.055, 12, 10]} />
-            <meshStandardMaterial
-              color={EYE_WHITE}
-              roughness={0.12}
-              envMapIntensity={1.5}
-            />
+            <meshStandardMaterial color={EYE_WHITE} roughness={0.35} />
           </mesh>
           <mesh position={[0.01, 0, 0.03]}>
             <sphereGeometry args={[0.038, 10, 8]} />
-            <meshStandardMaterial
-              color={EYE_DARK}
-              roughness={0.08}
-              envMapIntensity={1.8}
-            />
+            <meshStandardMaterial color={EYE_DARK} roughness={0.25} />
           </mesh>
           <mesh position={[0.02, 0.015, 0.055]}>
             <sphereGeometry args={[0.012, 8, 6]} />
@@ -213,19 +180,11 @@ export function Player() {
         <group position={[0.09, 0.22, 0.52]}>
           <mesh>
             <sphereGeometry args={[0.055, 12, 10]} />
-            <meshStandardMaterial
-              color={EYE_WHITE}
-              roughness={0.12}
-              envMapIntensity={1.5}
-            />
+            <meshStandardMaterial color={EYE_WHITE} roughness={0.35} />
           </mesh>
           <mesh position={[-0.01, 0, 0.03]}>
             <sphereGeometry args={[0.038, 10, 8]} />
-            <meshStandardMaterial
-              color={EYE_DARK}
-              roughness={0.08}
-              envMapIntensity={1.8}
-            />
+            <meshStandardMaterial color={EYE_DARK} roughness={0.25} />
           </mesh>
           <mesh position={[-0.015, 0.015, 0.055]}>
             <sphereGeometry args={[0.012, 8, 6]} />
@@ -284,23 +243,11 @@ export function Player() {
         {/* Rear haunches / feet */}
         <mesh castShadow position={[-0.2, -0.18, -0.22]} scale={[1.2, 0.7, 1.1]}>
           <sphereGeometry args={[0.13, 12, 10]} />
-          <meshPhysicalMaterial
-            color={FUR_WARM}
-            roughness={0.9}
-            sheen={1}
-            sheenRoughness={0.55}
-            sheenColor={FUR_SHEEN}
-          />
+          <meshStandardMaterial color={FUR_WARM} roughness={0.9} />
         </mesh>
         <mesh castShadow position={[0.2, -0.18, -0.22]} scale={[1.2, 0.7, 1.1]}>
           <sphereGeometry args={[0.13, 12, 10]} />
-          <meshPhysicalMaterial
-            color={FUR_WARM}
-            roughness={0.9}
-            sheen={1}
-            sheenRoughness={0.55}
-            sheenColor={FUR_SHEEN}
-          />
+          <meshStandardMaterial color={FUR_WARM} roughness={0.9} />
         </mesh>
         <mesh castShadow position={[-0.22, -0.26, -0.28]} scale={[1.1, 0.4, 1.2]}>
           <sphereGeometry args={[0.09, 10, 8]} />
@@ -314,13 +261,7 @@ export function Player() {
         {/* Soft round rump */}
         <mesh castShadow position={[0, 0.05, -0.38]} scale={[1.05, 0.9, 0.85]}>
           <sphereGeometry args={[0.22, 14, 12]} />
-          <meshPhysicalMaterial
-            color={FUR}
-            roughness={0.88}
-            sheen={1}
-            sheenRoughness={0.55}
-            sheenColor={FUR_SHEEN}
-          />
+          <meshStandardMaterial color={FUR} roughness={0.88} />
         </mesh>
       </group>
     </group>
