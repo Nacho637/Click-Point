@@ -60,10 +60,32 @@ Die Sackgassen reagieren sofort mit eigener Flavor — ohne im Text zu spoilern,
 das Gartentor nicht öffnen. Alle drei Ablenkungs-Items können über das Inventar wieder
 abgelegt werden.
 
-## Hof (geplant)
+## Hof / Parkplatz (aktueller Build)
 
-- Hund blockiert: Hundekeks **oder** Blechdose werfen  
-- Haustür: Katzenklappe + Schlüsselband **oder** Briefschlitz + Schnur  
+Ziel: ins Haus. Der **Fuchs Ferdinand** (wohnt in der Hundehütte) ist der einzige
+Charakter und **verwirrt**: er beharrt auf „Schlüssel finden, durch die Tür".
+
+### Sackgasse — Tür & Schlüssel
+1. Fußmatte anklicken → `rusty_key` ins Inventar  
+2. Schlüssel auf Haustür → passt, dreht aber nicht: **Popel** im Schloss (`door_booger`)  
+3. Tür bleibt zu — bewusste Sackgasse, öffnet nie
+
+### Echter Weg — Loch freilegen (Mülltonne-Öl-Kette)
+1. **Brecheisen** am Auto aufheben  
+2. Brecheisen auf **Bremsklotz** unterm Tonnenrad → `chock_removed`  
+3. **Blechdose** aufheben → auf **Öllache** unterm Auto → `oil_can`  
+4. `oil_can` auf **Tonnenrad** → `wheel_oiled`  
+5. Tonne anklicken → rollt weg, **Loch** erscheint (`bin_moved`)  
+6. Loch anklicken → Lappen raus (`hole_open`) → erneut anklicken → `entered_house` → Szene `hallway`
+
+| Flag | Bedeutung |
+|---|---|
+| `met_fox` | Fuchs kennengelernt |
+| `door_booger` | Popel im Schloss entdeckt (Sackgasse) |
+| `chock_removed` | Bremsklotz herausgehebelt |
+| `wheel_oiled` | Tonnenrad geölt |
+| `bin_moved` | Tonne weg, Loch freigelegt |
+| `hole_open` | Lappen raus, Loch offen |
 
 ## Haus (geplant)
 

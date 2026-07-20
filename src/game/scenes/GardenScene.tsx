@@ -437,6 +437,7 @@ export function GardenScene() {
   const getSelectedItem = useGameStore((state) => state.getSelectedItem);
   const gateOpen = useGameStore((state) => state.flags.gate_open);
   const showToast = useGameStore((state) => state.showToast);
+  const goToScene = useGameStore((state) => state.goToScene);
   const openTopics = useGameStore((state) => state.openTopics);
   const openTopicsAfterDialogue = useGameStore(
     (state) => state.openTopicsAfterDialogue,
@@ -493,7 +494,10 @@ export function GardenScene() {
 
   const onGate = () => {
     if (gateOpen) {
-      startDialogue("yard_teaser");
+      // Tor ist offen → in den Hof wechseln.
+      showToast("Du schlüpfst in den Hof …");
+      goToScene("yard");
+      startDialogue("yard_intro");
       return;
     }
     const selected = getSelectedItem();

@@ -5,7 +5,8 @@ export type TopicMenuId =
   | "bee_topics"
   | "worm_topics"
   | "squirrel_topics"
-  | "blackbird_topics";
+  | "blackbird_topics"
+  | "fox_topics";
 
 export type DialogueChoice = {
   label: string;
@@ -41,5 +42,12 @@ export const TOPIC_MENUS: Record<TopicMenuId, DialogueChoice[]> = {
     { label: "Warum singst du so früh?", dialogueId: "blackbird_song" },
     { label: "Erzähl mir vom Gemüsebeet", dialogueId: "blackbird_beet" },
     { label: "Tschüss, Toni", dialogueId: "blackbird_bye", bye: true },
+  ],
+  fox_topics: [
+    { label: "Wie komme ich ins Haus?", dialogueId: "fox_door" },
+    { label: "Wo ist der Schlüssel?", dialogueId: "fox_key_hint" },
+    { label: "Und dieses Loch da?", dialogueId: "fox_hole_denial" },
+    { label: "Wer bist du eigentlich?", dialogueId: "fox_about" },
+    { label: "Tschüss, Ferdinand", dialogueId: "fox_bye", bye: true },
   ],
 };

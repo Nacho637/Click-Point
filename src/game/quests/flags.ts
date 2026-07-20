@@ -12,7 +12,13 @@ export type QuestFlag =
   | "met_bee"
   | "met_worm"
   | "met_squirrel"
-  | "met_blackbird";
+  | "met_blackbird"
+  | "met_fox"
+  | "door_booger"
+  | "chock_removed"
+  | "wheel_oiled"
+  | "bin_moved"
+  | "hole_open";
 
 export type FlagMap = Record<QuestFlag, boolean>;
 
@@ -31,6 +37,12 @@ export const INITIAL_FLAGS: FlagMap = {
   met_worm: false,
   met_squirrel: false,
   met_blackbird: false,
+  met_fox: false,
+  door_booger: false,
+  chock_removed: false,
+  wheel_oiled: false,
+  bin_moved: false,
+  hole_open: false,
 };
 
 export type SceneId = "garden" | "yard" | "hallway" | "upstairs" | "ending";

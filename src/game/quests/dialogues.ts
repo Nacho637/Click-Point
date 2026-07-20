@@ -88,7 +88,43 @@ export type DialogueId =
   | "look_blackbird"
   | "look_oak"
   | "look_meadow"
-  | "look_beet";
+  | "look_beet"
+  // Hof / Parkplatz
+  | "yard_intro"
+  | "fox_intro"
+  | "fox_door"
+  | "fox_key_hint"
+  | "fox_hole_denial"
+  | "fox_about"
+  | "fox_bye"
+  | "rusty_key_found"
+  | "door_locked"
+  | "door_booger"
+  | "door_booger_stuck"
+  | "bin_blocked"
+  | "bin_chock_hint"
+  | "chock_removed"
+  | "bin_wheel_rusty"
+  | "wheel_oiled"
+  | "bin_rolled"
+  | "bin_gone"
+  | "crowbar_found"
+  | "tin_can_found"
+  | "oil_puddle_idle"
+  | "oil_scooped"
+  | "hole_plugged"
+  | "hole_cleared"
+  | "house_entered"
+  | "hallway_sign"
+  | "look_fox"
+  | "look_doghouse"
+  | "look_door"
+  | "look_bin"
+  | "look_chock"
+  | "look_car"
+  | "look_oil"
+  | "look_hole"
+  | "look_doormat";
 
 export const DIALOGUES: Record<DialogueId, DialogueLine[]> = {
   hedgehog_intro: [
@@ -692,6 +728,261 @@ export const DIALOGUES: Record<DialogueId, DialogueLine[]> = {
     {
       speaker: "Meeri",
       text: "Salat in Reih und Glied. Ich salutiere — und knabbere ausdrücklich nichts an. Noch.",
+    },
+  ],
+
+  // ── Hof / Parkplatz ────────────────────────────────────────────────
+  yard_intro: [
+    {
+      speaker: "System",
+      text: "Ein Hinterhof mit Parkplatz. Betongrau, ein altes Auto, Mülltonnen — und dahinter das Haus mit den Erbsen-Chips.",
+    },
+    {
+      speaker: "Meeri",
+      text: "Irgendwo hier muss ein Weg hinein sein. Eine Tür sehe ich schon. Und in der Hundehütte … blinzelt da wer?",
+    },
+  ],
+
+  fox_intro: [
+    {
+      speaker: "Fuchs Ferdinand",
+      symbols: "🦊✨ 🐹❗ 🏠❓",
+      translation:
+        "Ah, ein Meerschweinchen! Willkommen im Hof. Ferdinand mein Name — ja, ein Fuchs in einer Hundehütte, lange Geschichte.",
+    },
+    {
+      speaker: "Fuchs Ferdinand",
+      symbols: "🏠➡️ 🔑➕🚪 ✅ … 🕳️❌🙅",
+      translation:
+        "Du willst rein? Ganz einfach: Schlüssel suchen, Tür auf. Von komischen Löchern rate ich dir dringend ab.",
+    },
+  ],
+  fox_door: [
+    {
+      speaker: "Fuchs Ferdinand",
+      symbols: "🚪🔑 = 🥇 ➡️ 🏠✅",
+      translation:
+        "Die Tür ist der einzige anständige Weg. Schlüssel rein, drehen, fertig. So machen das die Profis.",
+    },
+  ],
+  fox_key_hint: [
+    {
+      speaker: "Fuchs Ferdinand",
+      symbols: "🔑 ➡️ 🧽⬇️ 📍 😉",
+      translation:
+        "Der Schlüssel? Klassiker: liegt unter der Fußmatte. Schau mal drunter. Vertrau mir.",
+    },
+  ],
+  fox_hole_denial: [
+    {
+      speaker: "Fuchs Ferdinand",
+      symbols: "🕳️❓ 🙄 ➡️ 🚪🔑❗",
+      translation:
+        "Loch? Welches Loch? Ich sehe kein Loch. Vergiss das. Die Tür, sag ich dir, die Tür!",
+    },
+    {
+      speaker: "Fuchs Ferdinand",
+      symbols: "🦊🤫 😅",
+      translation: "Und jetzt hör auf, hinter meine Hütte zu schielen.",
+    },
+  ],
+  fox_about: [
+    {
+      speaker: "Fuchs Ferdinand",
+      symbols: "🦊🏠🐕❌ ➡️ 😴☀️",
+      translation:
+        "Der Hund ist längst ausgezogen, also habe ich mir die Hütte geschnappt. Warme Lage, ruhige Nachbarn.",
+    },
+    {
+      speaker: "Fuchs Ferdinand",
+      symbols: "🦊👀🕳️ 🤐",
+      translation: "Was ich hier bewache, geht niemanden was an. Schon gar kein Meerschweinchen.",
+    },
+  ],
+  fox_bye: [
+    {
+      speaker: "Fuchs Ferdinand",
+      symbols: "👋🦊 ➡️ 🚪🔑 😉",
+      translation: "Bis dann! Und denk dran: die Tür. Nur die Tür.",
+    },
+  ],
+
+  rusty_key_found: [
+    {
+      speaker: "System",
+      text: "Unter der Fußmatte liegt tatsächlich ein rostiger Schlüssel. Der Fuchs hatte recht — oder?",
+    },
+  ],
+  door_locked: [
+    {
+      speaker: "System",
+      text: "Die Haustür ist verschlossen. Ohne passenden Schlüssel bewegt sich hier nichts.",
+    },
+  ],
+  door_booger: [
+    {
+      speaker: "System",
+      text: "Der rostige Schlüssel passt ins Schloss … dreht sich aber keinen Millimeter. Im Schlüsselloch steckt ein steinalter, vertrockneter Popel.",
+    },
+    {
+      speaker: "Meeri",
+      text: "Ganz ehrlich? Igitt. Und der sitzt bombenfest.",
+    },
+  ],
+  door_booger_stuck: [
+    {
+      speaker: "Meeri",
+      text: "Ich pule und pule — der Popel bleibt drin. Diese Tür kann ich vergessen. Es muss einen anderen Weg geben.",
+    },
+  ],
+
+  bin_blocked: [
+    {
+      speaker: "System",
+      text: "Eine schwere Mülltonne steht an der Wand. Du stemmst dich dagegen — keinen Zentimeter. Das Rad ist mit einem Ziegelstein verkeilt.",
+    },
+  ],
+  bin_chock_hint: [
+    {
+      speaker: "Meeri",
+      text: "Der Ziegel unterm Rad sitzt fest verkeilt. Mit bloßen Pfoten kriege ich den nicht raus — ich bräuchte etwas zum Hebeln.",
+    },
+  ],
+  chock_removed: [
+    {
+      speaker: "System",
+      text: "Mit dem Brecheisen hebelst du den Ziegel unter dem Rad heraus. Die Tonne wackelt — rollt aber noch nicht.",
+    },
+  ],
+  bin_wheel_rusty: [
+    {
+      speaker: "System",
+      text: "Der Bremsklotz ist weg, doch das Rad ist komplett festgerostet. Es quietscht nur trotzig. Da müsste was Schmieriges dran.",
+    },
+  ],
+  wheel_oiled: [
+    {
+      speaker: "System",
+      text: "Du kippst das Altöl übers Rad. Es sickert in die Achse — plötzlich dreht sich alles butterweich.",
+    },
+  ],
+  bin_rolled: [
+    {
+      speaker: "System",
+      text: "Ein kleiner Schubs genügt: Die Tonne rollt den Hof hinunter, holpert über den Ziegel und kippt scheppernd um. Dahinter — ein kleines Loch in der Wand!",
+    },
+  ],
+  bin_gone: [
+    {
+      speaker: "Meeri",
+      text: "Die Tonne liegt jetzt weiter unten im Hof. Und ich starre auf ein Loch, von dem der Fuchs nichts wissen wollte.",
+    },
+  ],
+  crowbar_found: [
+    {
+      speaker: "System",
+      text: "Ein kleines Brecheisen lehnt am Auto. Genau richtig, um etwas herauszuhebeln.",
+    },
+  ],
+  tin_can_found: [
+    {
+      speaker: "System",
+      text: "Eine leere Blechdose. Robust genug, um etwas darin aufzufangen.",
+    },
+  ],
+  oil_puddle_idle: [
+    {
+      speaker: "Meeri",
+      text: "Unter dem Auto glänzt eine Öllache. Schön schmierig — wenn ich das nur irgendwie aufsammeln könnte.",
+    },
+  ],
+  oil_scooped: [
+    {
+      speaker: "System",
+      text: "Du schöpfst mit der Blechdose zähes Altöl aus der Lache. Jetzt hast du eine ölige Dose.",
+    },
+  ],
+  hole_plugged: [
+    {
+      speaker: "System",
+      text: "Im Loch steckt ein alter, verknoteter Lappen. Du zerrst mit aller Kraft daran …",
+    },
+    {
+      speaker: "System",
+      text: "… und ziehst ihn heraus! Das Loch ist jetzt frei — gerade groß genug für ein entschlossenes Meerschweinchen.",
+    },
+  ],
+  hole_cleared: [
+    {
+      speaker: "Meeri",
+      text: "Das Loch ist offen. Kein Schlüssel, kein Popel, keine Tür — nur ich und ein enger, dunkler Weg nach drinnen.",
+    },
+  ],
+  house_entered: [
+    {
+      speaker: "System",
+      text: "Du zwängst dich durchs Loch. Es knirscht, es zwickt — dann plumpst du auf kühlen Boden. Du bist im Haus!",
+    },
+  ],
+  hallway_sign: [
+    {
+      speaker: "Meeri",
+      text: "Erbsen-Chips … ich rieche sie fast. Ganz nah jetzt. Aber das ist eine Geschichte für die nächste Ebene. Fortsetzung folgt!",
+    },
+  ],
+
+  look_fox: [
+    {
+      speaker: "Meeri",
+      text: "Ein Fuchs. In einer Hundehütte. Er lächelt zu freundlich für jemanden, der ständig auf die Tür zeigt.",
+    },
+  ],
+  look_doghouse: [
+    {
+      speaker: "Meeri",
+      text: "Eine Hundehütte ohne Hund, dafür mit Fuchs. Dahinter will er mich auffällig gern nicht schauen lassen.",
+    },
+  ],
+  look_door: [
+    {
+      speaker: "Meeri",
+      text: "Eine solide Haustür mit einem winzigen Schlüsselloch. Für ein Meerschweinchen riesig, für einen Einbruch zu klein.",
+    },
+  ],
+  look_bin: [
+    {
+      speaker: "Meeri",
+      text: "Eine mannshohe Mülltonne — na ja, meerschweinchenhohe zehn Mal. Sie steht verdächtig dicht an der Wand.",
+    },
+  ],
+  look_chock: [
+    {
+      speaker: "Meeri",
+      text: "Ein Ziegelstein, unters Tonnenrad geklemmt. Damit die schwere Tonne nicht den Hang runterrollt. Interessant.",
+    },
+  ],
+  look_car: [
+    {
+      speaker: "Meeri",
+      text: "Ein altes Auto, das seit Ewigkeiten nicht gefahren ist. Aus dem Motor tropft es leise.",
+    },
+  ],
+  look_oil: [
+    {
+      speaker: "Meeri",
+      text: "Eine dunkle Öllache. Glitschig, glänzend — und garantiert genau das, was ein festgerostetes Rad braucht.",
+    },
+  ],
+  look_hole: [
+    {
+      speaker: "Meeri",
+      text: "Ein kleines Loch am Wandfuß. Es zieht ein bisschen kühle Luft heraus — und ein Duft nach Drinnen.",
+    },
+  ],
+  look_doormat: [
+    {
+      speaker: "Meeri",
+      text: "Eine abgewetzte Fußmatte. Der klassische Ort, an dem Menschen ihren Schlüssel „verstecken\".",
     },
   ],
 };
