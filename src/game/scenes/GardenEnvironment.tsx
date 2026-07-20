@@ -1,7 +1,11 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useFrame } from "@react-three/fiber";
+import { useRef, type ReactNode } from "react";
+import * as THREE from "three";
 import { useDetailMaps } from "@/game/rendering/textures";
+import { useWaterMaterial } from "@/game/rendering/water";
+import { windTime } from "@/game/rendering/wind";
 import { InstancedForest } from "@/game/scenes/vegetation/InstancedForest";
 
 type Vec3 = [number, number, number];
@@ -545,18 +549,61 @@ export function Gate({ open }: { open: boolean }) {
   );
 }
 
+/** Auslaufende Wellenringe um die Seerosen — reine Deko, kein Raycast. */
+function RippleRings() {
+  const rings = useRef<Array<THREE.Mesh | null>>([]);
+  const configs = [
+    { x: -0.7, z: 0.2, phase: 0 },
+    { x: 0.95, z: -0.35, phase: 0.45 },
+    { x: 0.1, z: 0.55, phase: 0.8 },
+  ];
+
+  useFrame(() => {
+    configs.forEach((cfg, i) => {
+      const mesh = rings.current[i];
+      if (!mesh) return;
+      const p = (windTime.value * 0.22 + cfg.phase) % 1;
+      const s = 0.35 + p * 0.75;
+      mesh.scale.set(s, s, 1);
+      (mesh.material as THREE.MeshBasicMaterial).opacity =
+        0.18 * (1 - p) ** 1.5;
+    });
+  });
+
+  return (
+    <>
+      {configs.map((cfg, i) => (
+        <mesh
+          key={i}
+          position={[cfg.x, 0.055, cfg.z]}
+          rotation={[-Math.PI / 2, 0, 0]}
+          raycast={() => null}
+          ref={(m) => {
+            rings.current[i] = m;
+          }}
+        >
+          <ringGeometry args={[0.52, 0.57, 32]} />
+          <meshBasicMaterial color="#dff2ef" transparent depthWrite={false} />
+        </mesh>
+      ))}
+    </>
+  );
+}
+
 export function Pond({ children }: { children?: ReactNode }) {
   const rock = useDetailMaps("stone", 1);
+  const water = useWaterMaterial({ color: "#3f8a96", repeat: 4 });
   return (
     <group>
-      <mesh rotation={[-Math.PI / 2, 0, -0.2]} position={[0, 0.04, 0]} scale={[2.6, 1.7, 1]}>
+      <mesh
+        rotation={[-Math.PI / 2, 0, -0.2]}
+        position={[0, 0.04, 0]}
+        scale={[2.6, 1.7, 1]}
+        material={water}
+      >
         <circleGeometry args={[1, 36]} />
-        <meshStandardMaterial
-          color="#4d9aa5"
-          roughness={0.38}
-          metalness={0.05}
-        />
       </mesh>
+      <RippleRings />
       {[
         [-2.2, 0.14, -0.5],
         [-1.65, 0.12, 1],
@@ -676,6 +723,7 @@ export function Bench() {
 
 export function BirdBath() {
   const stone = useDetailMaps("stone", 1.2);
+  const water = useWaterMaterial({ color: "#5da7ad", repeat: 2 });
   return (
     <group>
       <mesh castShadow position={[0, 0.7, 0]}>
@@ -698,9 +746,12 @@ export function BirdBath() {
           normalScale={[0.55, 0.55]}
         />
       </mesh>
-      <mesh position={[0, 1.52, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh
+        position={[0, 1.52, 0]}
+        rotation={[-Math.PI / 2, 0, 0]}
+        material={water}
+      >
         <circleGeometry args={[0.52, 24]} />
-        <meshStandardMaterial color="#74aeb6" roughness={0.3} />
       </mesh>
     </group>
   );

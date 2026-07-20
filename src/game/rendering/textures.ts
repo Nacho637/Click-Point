@@ -13,7 +13,13 @@ import * as THREE from "three";
  * Kein einziges Asset-Byte im Repo, kein Netzwerk-Fetch.
  */
 
-export type DetailKind = "grass" | "dirt" | "bark" | "planks" | "stone";
+export type DetailKind =
+  | "grass"
+  | "dirt"
+  | "bark"
+  | "planks"
+  | "stone"
+  | "water";
 
 const SIZE = 512;
 
@@ -89,7 +95,9 @@ type Built = { height: Float32Array; tint?: Float32Array };
 
 function buildHeightField(kind: DetailKind): Built {
   const rand = mulberry32(
-    { grass: 101, dirt: 202, bark: 303, planks: 404, stone: 505 }[kind],
+    { grass: 101, dirt: 202, bark: 303, planks: 404, stone: 505, water: 606 }[
+      kind
+    ],
   );
   const h = new Float32Array(SIZE * SIZE);
 
@@ -154,6 +162,13 @@ function buildHeightField(kind: DetailKind): Built {
       for (let i = 0; i < 7; i++) {
         stampBump(h, rand() * SIZE, rand() * SIZE, 4 + rand() * 6, -0.5);
       }
+      break;
+    }
+    case "water": {
+      // Weiche, gleichmäßige Wellen-Kräusel ohne harte Kanten.
+      addNoiseOctave(h, 6, 0.5, rand);
+      addNoiseOctave(h, 14, 0.3, rand);
+      addNoiseOctave(h, 30, 0.18, rand);
       break;
     }
     case "stone": {
@@ -234,6 +249,7 @@ const DIFFUSE_CONTRAST: Record<DetailKind, number> = {
   bark: 0.34,
   planks: 0.3,
   stone: 0.3,
+  water: 0.05,
 };
 
 const NORMAL_STRENGTH: Record<DetailKind, number> = {
@@ -242,6 +258,7 @@ const NORMAL_STRENGTH: Record<DetailKind, number> = {
   bark: 3.0,
   planks: 2.4,
   stone: 2.6,
+  water: 2.0,
 };
 
 const cache = new Map<DetailKind, { map: THREE.CanvasTexture; normalMap: THREE.CanvasTexture }>();
