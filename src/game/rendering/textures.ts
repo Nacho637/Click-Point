@@ -17,7 +17,7 @@ export type DetailKind = "grass" | "dirt" | "bark" | "planks" | "stone";
 
 const SIZE = 512;
 
-function mulberry32(seed: number) {
+export function mulberry32(seed: number) {
   let a = seed >>> 0;
   return () => {
     a |= 0;

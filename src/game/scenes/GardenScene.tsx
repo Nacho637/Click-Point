@@ -20,6 +20,7 @@ import {
   Snail,
   Wildblumenwiese,
 } from "@/game/scenes/GardenEnvironment";
+import { GrassField } from "@/game/scenes/vegetation/GrassField";
 import { useGameStore } from "@/game/store";
 
 function Hedgehog() {
@@ -582,6 +583,7 @@ export function GardenScene() {
     <group>
       <DistantBackdrop />
       <GardenGround />
+      <GrassField />
       <NaturalBoundary />
       <Gate open={gateOpen} />
       <Player />

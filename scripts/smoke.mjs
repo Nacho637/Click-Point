@@ -33,7 +33,9 @@ try {
   await page.waitForFunction(() => Boolean(window.__gameStore), null, {
     timeout: 30_000,
   });
-  await page.waitForTimeout(3000);
+  // SwiftShader braucht lange für den ersten Shader-Compile; Frames können
+  // anfangs >500ms dauern. Großzügig warten, Tasten lang halten.
+  await page.waitForTimeout(8000);
 
   const getState = () =>
     page.evaluate(() => {
@@ -51,8 +53,12 @@ try {
     await page.waitForTimeout(150);
   };
 
-  // Bekannte Interactables rund um den Spawn (Positionen aus GardenScene).
+  // Alle Interactables (Positionen aus GardenScene) — jeder Zufallshalt
+  // ist damit ein gültiges Klick-Ziel. Hauptziel bleibt die Alte Eiche:
+  // größter Trigger-Radius (2.6) direkt an der z-Klemme.
   const KNOWN = {
+    oak: [2.5, 16],
+    squirrel: [2.8, 14.6],
     hedgehog: [-2.8, 6.2],
     flowerpot: [-6.8, 4.2],
     snail: [-5.2, 8.5],
@@ -60,19 +66,45 @@ try {
     crumbs: [4.8, 7.5],
     compost: [9.5, 7.6],
     "smooth-stone": [-9.5, 0.2],
+    "red-leaf": [-3.4, 9.7],
+    "bottle-cap": [8.7, 0.7],
+    sparrow: [7.2, -1.6],
+    gnome: [7, 3.2],
+    bench: [3.7, 4.1],
+    birdbath: [-3.8, 0.5],
+    wheelbarrow: [5.7, -7.1],
+    shed: [8.6, -7.3],
+    beet: [14, 7],
+    meadow: [-14.5, 4.5],
+    mouse: [-15.2, 2.6],
+    bee: [-13.4, 6.8],
+    worm: [13.6, 8.6],
+    blackbird: [15.8, 3.4],
   };
 
-  // Loslaufen, bis irgendein bekanntes Interactable in Reichweite ist.
-  // SwiftShader-Frametimes streuen zu stark für punktgenaues Ansteuern,
-  // daher pendeln wir auf der Spawn-Höhe (z≈8) durch die Trigger-Radien
-  // von Schnecke/Blumentopf/Gießkanne, bis nearby anschlägt.
+  // Warm-up: warten, bis Tastatur-Input wirklich Bewegung erzeugt
+  // (Hydration/Listener-Registrierung ist zeitlich nicht deterministisch).
+  {
+    const [, , z0] = (await getState()).playerPosition;
+    let moved = false;
+    for (let i = 0; i < 15 && !moved; i++) {
+      await press("s", 600);
+      const [, , z] = (await getState()).playerPosition;
+      moved = Math.abs(z - z0) > 0.01;
+      if (!moved) await page.waitForTimeout(1000);
+    }
+    if (!moved) throw new Error("Keine Bewegung nach 15 Versuchen — Input tot?");
+  }
+
+  // SwiftShader-Frametimes streuen extrem (ein Frame kann mehrere Einheiten
+  // Bewegung bedeuten). Deshalb: erst nach hinten laufen, bis die
+  // Spielfeld-Klemme z=17 exakt fixiert, dann seitlich ins breite
+  // Eichen-Fenster (x ≈ 0.1–4.9) pendeln, bis nearby anschlägt.
+  for (let i = 0; i < 6; i++) await press("s", 500);
   let state = await getState();
-  let dir = "a";
-  for (let i = 0; i < 60 && !(state.nearbyId in KNOWN); i++) {
+  for (let i = 0; i < 40 && !(state.nearbyId in KNOWN); i++) {
     const x = state.playerPosition[0];
-    if (x < -10.5) dir = "d";
-    else if (x > -3) dir = "a";
-    await press(dir, 70);
+    await press(x > 2.5 ? "a" : "d", 200);
     state = await getState();
   }
   await page.waitForTimeout(400);
@@ -92,14 +124,29 @@ try {
   camera.lookAt(px, py + 0.4, pz);
   camera.updateMatrixWorld();
 
-  // Mehrere Höhen anklicken, bis der Raycast das Mesh trifft.
-  let clicked = null;
-  for (const ty of [0.45, 0.25, 0.7, 0.1]) {
+  // Mehrere Höhen anklicken, bis der Raycast das Mesh trifft
+  // (bei der Eiche sitzt der dicke Stamm deutlich höher als ein Pickup).
+  const candidates = [];
+  for (const ty of [0.9, 0.45, 1.6, 0.25, 0.7]) {
     const projected = new THREE.Vector3(tx, ty, tz).project(camera);
-    const sx = Math.round((projected.x + 1) * 640);
-    const sy = Math.round((1 - projected.y) * 360);
+    candidates.push([
+      Math.round((projected.x + 1) * 640),
+      Math.round((1 - projected.y) * 360),
+    ]);
+  }
+  // Fallback: grobes Raster über die Bildmitte. Nicht-nahe Interactables
+  // schlucken Klicks nicht (ihr Guard feuert vor stopPropagation), es kann
+  // also nur das nahe Ziel antworten.
+  for (let sy = 150; sy <= 450; sy += 100) {
+    for (let sx = 400; sx <= 900; sx += 100) {
+      candidates.push([sx, sy]);
+    }
+  }
+
+  let clicked = null;
+  for (const [sx, sy] of candidates) {
     await page.mouse.click(sx, sy);
-    await page.waitForTimeout(400);
+    await page.waitForTimeout(350);
     if (await page.$(DIALOG)) {
       clicked = [sx, sy];
       break;
@@ -119,15 +166,19 @@ try {
   const stillOpen = await page.$(DIALOG);
   console.log(stillOpen ? "Dialog noch offen (Choices?)" : "Dialog geschlossen");
 
-  // Rechtsklick = „Anschauen" am selben Punkt.
+  // Rechtsklick = „Anschauen" — gleicher Kandidaten-Durchlauf wie links.
   if (!stillOpen) {
-    await page.mouse.click(clicked[0], clicked[1], { button: "right" });
-    await page.waitForTimeout(500);
-    if (await page.$(DIALOG)) {
-      console.log("Rechtsklick-Anschauen OK");
-    } else {
-      throw new Error("Rechtsklick öffnete keinen Dialog");
+    let lookOk = false;
+    for (const [sx, sy] of [clicked, ...candidates]) {
+      await page.mouse.click(sx, sy, { button: "right" });
+      await page.waitForTimeout(350);
+      if (await page.$(DIALOG)) {
+        lookOk = true;
+        break;
+      }
     }
+    if (!lookOk) throw new Error("Rechtsklick öffnete keinen Dialog");
+    console.log("Rechtsklick-Anschauen OK");
   }
 
   console.log("Smoke-Test bestanden");

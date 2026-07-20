@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { Atmosphere, SUN_POSITION } from "@/game/rendering/Atmosphere";
 import { DevPerf } from "@/game/rendering/DevPerf";
 import { Effects } from "@/game/rendering/Effects";
+import { WindDriver } from "@/game/rendering/wind";
 import { GardenScene } from "@/game/scenes/GardenScene";
 import { FollowCamera } from "@/game/systems/FollowCamera";
 import { useSaveSync } from "@/game/systems/useSaveSync";
@@ -56,6 +57,7 @@ export function GameCanvas() {
         onContextMenu={(e) => e.preventDefault()}
       >
         <DevPerf />
+        <WindDriver />
         <Suspense fallback={null}>
           <Atmosphere />
           <SceneLights />

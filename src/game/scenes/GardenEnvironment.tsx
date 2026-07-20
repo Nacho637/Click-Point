@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { useDetailMaps } from "@/game/rendering/textures";
+import { InstancedForest } from "@/game/scenes/vegetation/InstancedForest";
 
 type Vec3 = [number, number, number];
 
@@ -174,7 +175,11 @@ export function GardenGround() {
           normalScale={[0.4, 0.4]}
         />
       </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0.75]} position={[0, -0.035, 0]}>
+      <mesh
+        rotation={[-Math.PI / 2, 0, 0.75]}
+        position={[0, -0.035, 0]}
+        raycast={() => null}
+      >
         <circleGeometry args={[26, 56]} />
         <meshStandardMaterial
           color="#659451"
@@ -347,22 +352,7 @@ export function NaturalBoundary() {
   const bark = useDetailMaps("bark", 2, 1.2);
   return (
     <group>
-      {treePositions.map(([position, scale, rotation], index) => (
-        <Tree
-          key={`tree-${index}`}
-          position={position}
-          scale={scale}
-          rotation={rotation}
-        />
-      ))}
-      {bushPositions.map(([position, scale, color], index) => (
-        <Bush
-          key={`bush-${index}`}
-          position={position}
-          scale={scale}
-          color={color}
-        />
-      ))}
+      <InstancedForest trees={treePositions} bushes={bushPositions} />
       {stonePositions.map((position, index) => (
         <mesh
           key={`rock-${index}`}
