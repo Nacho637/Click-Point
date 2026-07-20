@@ -671,7 +671,12 @@ export function GardenShed() {
       </mesh>
       <mesh position={[0.5, 1.2, 1.72]}>
         <sphereGeometry args={[0.08, 8, 8]} />
-        <meshStandardMaterial color="#c2a65d" metalness={0.4} />
+        <meshStandardMaterial
+          color="#c2a65d"
+          metalness={0.75}
+          roughness={0.25}
+          envMapIntensity={1.4}
+        />
       </mesh>
       <mesh position={[-1.25, 1.7, 1.63]}>
         <boxGeometry args={[0.72, 0.72, 0.08]} />
@@ -770,7 +775,12 @@ export function GardenGnome() {
       </mesh>
       <mesh castShadow position={[0, 1.33, 0]} rotation={[0, 0, 0.08]}>
         <coneGeometry args={[0.38, 1, 12]} />
-        <meshStandardMaterial color="#b9483e" roughness={0.95} />
+        <meshPhysicalMaterial
+          color="#b9483e"
+          roughness={0.5}
+          clearcoat={0.6}
+          clearcoatRoughness={0.35}
+        />
       </mesh>
       <mesh castShadow position={[0, 0.7, 0.3]}>
         <coneGeometry args={[0.28, 0.7, 10]} />
