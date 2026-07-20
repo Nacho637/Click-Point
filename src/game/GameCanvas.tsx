@@ -3,15 +3,46 @@
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import { GardenScene } from "@/game/scenes/GardenScene";
+import { HallwayScene } from "@/game/scenes/HallwayScene";
+import { YardScene } from "@/game/scenes/YardScene";
+import type { SceneId } from "@/game/quests/flags";
 import { FollowCamera } from "@/game/systems/FollowCamera";
 import { useSaveSync } from "@/game/systems/useSaveSync";
+import { useGameStore } from "@/game/store";
 import { GameHUD } from "@/game/ui/GameHUD";
 
-function SceneLights() {
+function SceneLights({ sceneId }: { sceneId: SceneId }) {
+  if (sceneId === "hallway" || sceneId === "upstairs") {
+    // Innenraum: kühler, gedämpfter, ohne Himmel.
+    return (
+      <>
+        <color attach="background" args={["#1c1f22"]} />
+        <fog attach="fog" args={["#1c1f22", 18, 46]} />
+        <ambientLight intensity={0.45} color="#cdd6dd" />
+        <directionalLight
+          castShadow
+          position={[-6, 14, 8]}
+          intensity={0.9}
+          color="#e8ead0"
+          shadow-mapSize-width={1536}
+          shadow-mapSize-height={1536}
+          shadow-camera-left={-22}
+          shadow-camera-right={22}
+          shadow-camera-top={22}
+          shadow-camera-bottom={-22}
+          shadow-camera-far={58}
+        />
+        <hemisphereLight args={["#9aa7b0", "#2c2620", 0.4]} />
+      </>
+    );
+  }
+
+  // Außen (garden/yard/ending): warmes Tageslicht. Der Hof ist etwas grauer.
+  const isYard = sceneId === "yard";
   return (
     <>
-      <color attach="background" args={["#93c1d8"]} />
-      <fog attach="fog" args={["#a9c9d1", 34, 72]} />
+      <color attach="background" args={[isYard ? "#aab4bb" : "#93c1d8"]} />
+      <fog attach="fog" args={[isYard ? "#b3bcc1" : "#a9c9d1", 34, 72]} />
       <ambientLight intensity={0.5} color="#fff1d0" />
       <directionalLight
         castShadow
@@ -31,6 +62,25 @@ function SceneLights() {
   );
 }
 
+function ActiveScene() {
+  const sceneId = useGameStore((s) => s.sceneId);
+  if (sceneId === "yard") return <YardScene />;
+  if (sceneId === "hallway" || sceneId === "upstairs" || sceneId === "ending")
+    return <HallwayScene />;
+  return <GardenScene />;
+}
+
+function CanvasContents() {
+  const sceneId = useGameStore((s) => s.sceneId);
+  return (
+    <Suspense fallback={null}>
+      <SceneLights sceneId={sceneId} />
+      <FollowCamera />
+      <ActiveScene />
+    </Suspense>
+  );
+}
+
 export function GameCanvas() {
   useSaveSync(true);
 
@@ -43,11 +93,7 @@ export function GameCanvas() {
         gl={{ antialias: true, powerPreference: "high-performance" }}
         onContextMenu={(e) => e.preventDefault()}
       >
-        <Suspense fallback={null}>
-          <SceneLights />
-          <FollowCamera />
-          <GardenScene />
-        </Suspense>
+        <CanvasContents />
       </Canvas>
       <GameHUD />
     </div>

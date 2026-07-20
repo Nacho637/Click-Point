@@ -9,7 +9,10 @@ export type ItemId =
   | "magnet"
   | "smooth_stone"
   | "red_leaf"
-  | "bottle_cap";
+  | "bottle_cap"
+  | "crowbar"
+  | "oil_can"
+  | "rusty_key";
 
 export type ItemDef = {
   id: ItemId;
@@ -85,6 +88,24 @@ export const ITEM_CATALOG: Record<ItemId, ItemDef> = {
     name: "Blauer Kronkorken",
     description: "Glänzt wie ein winziger Hut.",
     glyph: "KRO",
+  },
+  crowbar: {
+    id: "crowbar",
+    name: "Brecheisen",
+    description: "Rostig, aber es hebelt fast alles heraus.",
+    glyph: "BRE",
+  },
+  oil_can: {
+    id: "oil_can",
+    name: "Ölige Blechdose",
+    description: "Randvoll mit zähem Altöl. Schön schmierig.",
+    glyph: "ÖL",
+  },
+  rusty_key: {
+    id: "rusty_key",
+    name: "Rostiger Schlüssel",
+    description: "Sieht wichtig aus. Passt bestimmt in die Haustür … oder?",
+    glyph: "RSL",
   },
 };
 

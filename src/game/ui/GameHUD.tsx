@@ -9,7 +9,9 @@ import { InventoryBar } from "@/game/ui/InventoryBar";
 export function GameHUD() {
   const nearbyId = useGameStore((s) => s.nearbyId);
   const toast = useGameStore((s) => s.toast);
+  const sceneId = useGameStore((s) => s.sceneId);
   const gateOpen = useGameStore((s) => s.flags.gate_open);
+  const enteredHouse = useGameStore((s) => s.flags.entered_house);
   const uiOpen = useGameStore((s) => s.dialogue !== null || s.choices !== null);
   const lookMode = useGameStore((s) => s.verbMode === "look");
   const toggleVerbMode = useGameStore((s) => s.toggleVerbMode);
@@ -24,9 +26,14 @@ export function GameHUD() {
           <p className="text-sm text-[#c5ddb8]">
             WASD bewegen · Nah sein · Anklicken
           </p>
-          {!gateOpen && (
+          {sceneId === "garden" && !gateOpen && (
             <p className="mt-2 max-w-xs rounded-full border border-white/10 bg-[#142018]/65 px-3 py-1 text-xs text-[#d9e8d0] backdrop-blur">
               Ziel: Finde einen Weg durchs Gartentor. Nicht alles ist nützlich.
+            </p>
+          )}
+          {sceneId === "yard" && (
+            <p className="mt-2 max-w-xs rounded-full border border-white/10 bg-[#142018]/65 px-3 py-1 text-xs text-[#d9e8d0] backdrop-blur">
+              Ziel: Finde einen Weg ins Haus. Trau nicht jedem Ratschlag.
             </p>
           )}
         </div>
@@ -64,11 +71,20 @@ export function GameHUD() {
         </div>
       )}
 
-      {gateOpen && (
+      {sceneId === "garden" && gateOpen && (
         <div className="pointer-events-auto absolute right-4 top-24 max-w-xs rounded-2xl border border-[#8fb87a]/50 bg-[#142018]/85 p-3 text-sm text-[#d9e8d0] backdrop-blur">
           <p className="font-semibold text-[#f0c75e]">Tor offen!</p>
           <p className="mt-1">
-            MVP geschafft. Als Nächstes: Hof, Hund und Haustür.
+            Geh zum Tor und schlüpf hindurch in den Hof.
+          </p>
+        </div>
+      )}
+
+      {enteredHouse && sceneId !== "garden" && sceneId !== "yard" && (
+        <div className="pointer-events-auto absolute right-4 top-24 max-w-xs rounded-2xl border border-[#8fb87a]/50 bg-[#142018]/85 p-3 text-sm text-[#d9e8d0] backdrop-blur">
+          <p className="font-semibold text-[#f0c75e]">Im Haus!</p>
+          <p className="mt-1">
+            Durchs Loch geschafft — der Fuchs mit seiner Tür hatte keine Chance. Fortsetzung folgt.
           </p>
         </div>
       )}
