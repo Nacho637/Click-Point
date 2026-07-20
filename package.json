@@ -6,16 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "shot": "node scripts/screenshot.mjs"
+    "lint": "eslint"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
-    "@react-three/postprocessing": "^3.0.4",
-    "maath": "^0.10.8",
-    "n8ao": "^1.9.4",
-    "three-custom-shader-material": "^6.3.1",
     "@supabase/ssr": "^0.12.3",
     "@supabase/supabase-js": "^2.110.7",
     "@types/three": "^0.185.1",
@@ -27,7 +22,6 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "playwright-core": "^1.49.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
