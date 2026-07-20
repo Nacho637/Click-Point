@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { Atmosphere, SUN_POSITION } from "@/game/rendering/Atmosphere";
 import { DevPerf } from "@/game/rendering/DevPerf";
 import { Effects } from "@/game/rendering/Effects";
+import { TierMonitor } from "@/game/rendering/TierMonitor";
 import { WindDriver } from "@/game/rendering/wind";
 import { GardenScene } from "@/game/scenes/GardenScene";
 import { FollowCamera } from "@/game/systems/FollowCamera";
@@ -58,6 +59,7 @@ export function GameCanvas() {
       >
         <DevPerf />
         <WindDriver />
+        <TierMonitor />
         <Suspense fallback={null}>
           <Atmosphere />
           <SceneLights />

@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+import { GRASS_COUNT, useQuality } from "@/game/rendering/quality";
 import { mulberry32 } from "@/game/rendering/textures";
 import { applyWind } from "@/game/rendering/wind";
 
@@ -10,8 +11,6 @@ import { applyWind } from "@/game/rendering/wind";
  * Einzelschritt weg vom "flachen Teppich". Ein Draw Call, kein
  * Schattenwurf, Halme empfangen aber Schatten und Umgebungslicht.
  */
-
-export const GRASS_COUNT_DESKTOP = 34000;
 
 const FIELD_RADIUS = 24;
 const BLADE_HEIGHT = 0.32;
@@ -89,10 +88,12 @@ function buildBladeGeometry(): THREE.BufferGeometry {
   return g;
 }
 
-export function GrassField({ count = GRASS_COUNT_DESKTOP }: { count?: number }) {
+export function GrassField() {
+  const tier = useQuality((s) => s.tier);
+  const count = GRASS_COUNT[tier];
   const ref = useRef<THREE.InstancedMesh>(null);
 
-  const geometry = useMemo(buildBladeGeometry, []);
+  const geometry = useMemo(() => buildBladeGeometry(), []);
   const material = useMemo(() => {
     const m = new THREE.MeshStandardMaterial({
       color: "#7ba55c",
