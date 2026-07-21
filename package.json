@@ -9,15 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.6.1",
     "@supabase/ssr": "^0.12.3",
     "@supabase/supabase-js": "^2.110.7",
-    "@types/three": "^0.185.1",
     "next": "16.2.10",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "three": "^0.185.1",
     "zustand": "^5.0.14"
   },
   "devDependencies": {
@@ -30,5 +26,5 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "description": "Browser point-and-click adventure: a guinea pig heists the pea-chip vault."
+  "description": "Browser pixel adventure (Pokémon-style top-down): a guinea pig heists the pea-chip vault."
 }

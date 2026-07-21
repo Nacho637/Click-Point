@@ -11,28 +11,28 @@ export function ChoiceBox() {
 
   return (
     <div className="pointer-events-auto absolute inset-x-0 bottom-28 z-20 flex justify-center px-4">
-      <div className="w-full max-w-2xl rounded-2xl border border-[#f0c75e]/40 bg-[#101810]/92 px-5 py-4 shadow-xl backdrop-blur-md">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#f0c75e]">
-          Worüber willst du reden?
-        </p>
-        <div className="flex flex-col gap-1.5">
+      <div className="pk-box relative w-full max-w-2xl px-6 py-5">
+        <span className="absolute -top-3 left-4 rounded bg-[#2b3a8c] px-2 py-0.5 font-[family-name:var(--font-display)] text-[10px] uppercase tracking-wider text-[#f8f4e6] shadow">
+          Worüber reden?
+        </span>
+        <div className="flex flex-col gap-1">
           {choices.map((choice) => {
-            const asked =
-              !choice.bye && askedTopics.includes(choice.dialogueId);
+            const asked = !choice.bye && askedTopics.includes(choice.dialogueId);
             return (
               <button
                 key={choice.dialogueId}
                 type="button"
                 onClick={() => chooseTopic(choice)}
-                className={`rounded-xl border border-transparent px-3 py-2 text-left font-[family-name:var(--font-story)] text-base transition hover:border-[#f0c75e]/60 hover:bg-[#f0c75e]/10 ${
+                className={`group flex items-center gap-2 rounded px-2 py-1 text-left font-[family-name:var(--font-story)] text-2xl leading-tight transition hover:bg-[#2b3a8c]/10 ${
                   choice.bye
-                    ? "mt-1 border-t border-t-[#f0c75e]/25 pt-3 text-[#f0c75e]"
+                    ? "mt-1 border-t-2 border-t-[#2b3a8c]/30 pt-2 text-[#2b3a8c]"
                     : asked
-                      ? "text-[#f4f7ef] opacity-60"
-                      : "text-[#f4f7ef]"
+                      ? "text-[#20242a] opacity-55"
+                      : "text-[#20242a]"
                 }`}
               >
-                {asked ? `✓ ${choice.label}` : choice.label}
+                <span className="w-4 shrink-0 text-[#2b3a8c] opacity-0 group-hover:opacity-100">▶</span>
+                <span>{asked ? `✓ ${choice.label}` : choice.label}</span>
               </button>
             );
           })}

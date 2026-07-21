@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Fraunces, Nunito } from "next/font/google";
+import { Press_Start_2P, VT323 } from "next/font/google";
 import "./globals.css";
 
-const display = Fraunces({
+// Retro-Pixel-Fonts im Game-Boy-/Pokémon-Stil.
+const display = Press_Start_2P({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["600", "700"],
+  weight: ["400"],
 });
 
-const story = Nunito({
+const story = VT323({
   variable: "--font-story",
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
