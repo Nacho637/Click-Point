@@ -1,8 +1,8 @@
 # Erbsen-Chip Heist
 
-Browserbasiertes 3D-Point-and-Click-Adventure: Du spielst ein Meerschweinchen auf dem Weg zum Erbsen-Chip-Tresor.
+Browserbasiertes Pixel-Point-and-Click-Adventure im Top-Down-Retro-Look (Pokémon-Stil): Du spielst ein Meerschweinchen auf dem Weg zum Erbsen-Chip-Tresor.
 
-Steuerung wie bei Blue Rabbit’s Climate Chaos — **WASD** laufen, **Mausklick** für NPCs/Objekte, **4 Inventar-Slots**.
+**WASD/Pfeiltasten** laufen, **Leertaste/E** oder **Mausklick** für NPCs/Objekte (nur in Reichweite), **4 Inventar-Slots**. Die komplette Grafik ist eine eigene 2D-Pixel-Engine auf HTML-Canvas — Sprites, Kacheln und Kamera prozedural, ohne externe Assets.
 
 ## Spielen
 
@@ -27,7 +27,8 @@ Werte stehen lokal in `.env.local` / Vorlage in `.env.example`. Speicherstände 
 | Aktion | Eingabe |
 |---|---|
 | Bewegen | `W` `A` `S` `D` oder Pfeiltasten |
-| Interagieren | Linksklick (nur in Reichweite) |
+| Interagieren | Leertaste/`E` oder Linksklick (nur in Reichweite) |
+| Anschauen | Rechtsklick oder Anschauen-Modus |
 | Item wählen | Inventar-Slot unten |
 | Item benutzen | Item wählen, dann Ziel anklicken |
 | Ablegen | „Ausgewähltes ablegen“ |
@@ -49,8 +50,9 @@ Details: [`design/quest-graph.md`](design/quest-graph.md), [`design/gdd.md`](des
 ## Stack
 
 - Next.js (App Router) + TypeScript + Tailwind
-- React Three Fiber / Three.js
-- Zustand (Spielzustand)
+- Eigene 2D-Pixel-Engine auf HTML-Canvas (`src/game/pixel/`) — Kachel-Terrain, Sprite-Rasterizer, Kamera & Kollision, alles prozedural
+- Retro-Pixel-Fonts (Press Start 2P / VT323)
+- Zustand (Spielzustand, render-unabhängig)
 - Supabase (Save-API unter `/api/save`)
 - Vercel (Hosting)
 
